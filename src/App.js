@@ -55,8 +55,9 @@ const App = () => {
             <button id="button" disabled={currentPokemonIndex === 0 ? true : false} onClick={() => handlePrevious()}>Previous</button>
           </div>
           <div className="button-container-next">
-            <button id="button" disabled={currentPokemonIndex === pokemonList.length - 1 ? true : false} onClick={() => handleNext()}>Next</button></div>
+            <button id="button" disabled={currentPokemonIndex === pokemonList.length - 1 ? true : false} onClick={() => handleNext()}>Next</button>
           </div>
+        </div>
       </div>
     );
   }
