@@ -15,6 +15,7 @@ body {
   height: 100vh;
   box-sizing: border-box;
   margin: 0px;
+  width: fit-content;
 }
 
 .card {
