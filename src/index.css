@@ -64,6 +64,7 @@ body {
 .button-container-main {
   display: flex;
   margin-top: auto;
+  justify-content: center;
 }
 
 .button-container-previous {
@@ -81,6 +82,7 @@ body {
   width: calc(50vw - 15px);
   border: 0px;
   padding: 10px;
+  min-width: 100px;
 }
 
 #button:disabled {
