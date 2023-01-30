@@ -11,7 +11,9 @@ export const getPokemonDescription = async (index) => {
     `https://pokeapi.co/api/v2/pokemon-species/${index}`
   ).then(res => res.json()));
 
-  return pokemon.flavor_text_entries[0].flavor_text.replace(/[\n\f]/g, " ");
+  const pokemonEn = pokemon.flavor_text_entries.find(pokemon => pokemon.language.name === 'en' && pokemon.version.name === 'red');
+
+  return pokemonEn.flavor_text.replace(/[\n\f]/g, " ");
 };
 
 export const getPokemonImage = (index) => {

@@ -17,19 +17,25 @@ const App = () => {
       }
       const flavorText = await getPokemonDescription(currentPokemonIndex + 1);
       setPokemonFlavorText(flavorText);
+      const image = getPokemonImage(currentPokemonIndex);
+      setPokemonImage(image);
     };
     getPokemons();
   }, [currentPokemonIndex, pokemonList]);
 
   const handlePrevious = () => {
+    setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex - 1);
   };
 
   const handleNext = () => {
+    setPokemonFlavorText(null);
+    setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex + 1);
   };
 
   const handleSelect = (e) => {
+    setPokemonImage(null);
     setCurrentPokemonIndex(e);
   };
 
@@ -42,14 +48,20 @@ const App = () => {
           ))}
         </Select>
         <div className="card">
-          <div className="pokemon-image-background"></div>
-          <img
-            className="pokemon-image"
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`} 
-            alt={pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}>
-          </img>
+          <div className="pokemon-image-background">
+            {pokemonImage ? null : <div className="loader"></div>} 
+          </div>
+          {pokemonImage 
+            ? <img
+                className="pokemon-image"
+                // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`}
+                src={pokemonImage} 
+                alt={pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}>
+              </img>
+            : <div style={{ width: '200px', height: '200px' }}></div>
+          } 
           <div className="pokemon-name">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div>
-          <div className="pokemon-description">{pokemonFlavorText}</div>
+          {pokemonFlavorText ?  <div className="pokemon-description">{pokemonFlavorText}</div> : <div className="desc-placeholder"><div className="loader"></div></div>}
         </div>
         <div className="button-container-main">
             <div className="button-container-previous">
