@@ -137,3 +137,16 @@ body {
   opacity: 0.8;
 }
 
+table {
+  width: 100%;
+  padding: 10px;
+}
+
+th {
+  text-align: center;
+  width: 50%;
+}
+
+td {
+  text-align: center;
+}

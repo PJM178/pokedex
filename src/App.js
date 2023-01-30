@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getPokemonDescription, getPokemonList, getPokemonImage } from "./api/utils";
 import Select from "./components/Select";
+import MoveList from "./components/MoveList";
 
 const App = () => {
   const [pokemonList, setPokemonList] = useState(null);
@@ -56,12 +57,13 @@ const App = () => {
                 className="pokemon-image"
                 // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`}
                 src={pokemonImage} 
-                alt={pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}>
+                alt="">
               </img>
             : <div style={{ width: '200px', height: '200px' }}></div>
           } 
           <div className="pokemon-name">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div>
           {pokemonFlavorText ?  <div className="pokemon-description">{pokemonFlavorText}</div> : <div className="desc-placeholder"><div className="loader"></div></div>}
+          <MoveList pokemonName={pokemonList[currentPokemonIndex].name} />
         </div>
         <div className="button-container-main">
             <div className="button-container-previous">

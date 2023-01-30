@@ -20,4 +20,16 @@ export const getPokemonImage = (index) => {
   const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
 
   return image;
+};
+
+export const getPokemonMoves = async (pokemon) => {
+  const moves = await (fetch(
+    `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+  )).then(res => res.json());
+
+  const filteredMoves = moves.moves.filter(move => move.version_group_details.find(move => move.move_learn_method.name === 'level-up' && move.version_group.name === 'red-blue'));
+
+  console.log(moves.moves);
+  console.log(filteredMoves);
+  return filteredMoves;
 }
