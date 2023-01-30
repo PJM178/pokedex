@@ -1,7 +1,16 @@
+@media only screen and (max-width: 500px) {
+  div.background {
+    width: fit-content;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: #BBE6E4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .background {
@@ -15,7 +24,8 @@ body {
   height: 100vh;
   box-sizing: border-box;
   margin: 0px;
-  width: fit-content;
+  width: 50vw;
+  align-items: center;
 }
 
 .card {
@@ -52,6 +62,8 @@ body {
   font-weight: bold;
   padding: 10px;
   margin-top: 5px;
+  word-break: break-all;
+  text-align: center;
 }
 
 .pokemon-description {
@@ -59,30 +71,33 @@ body {
   line-height: 120%;
   text-align: center;
   padding: 10px;
+  word-break: break-word;
 }
 
 .button-container-main {
   display: flex;
   margin-top: auto;
+  width: 100%;
   justify-content: center;
 }
 
 .button-container-previous {
   margin-right: 5px;
+  width: 50%;
 }
 
 .button-container-next {
   margin-left: 5px;
+  width: 50%;
 }
 
 #button {
   background-color: #7D70BA;
   color: #FFF;
   border-radius: 3px;
-  width: calc(50vw - 15px);
+  width: 100%;
   border: 0px;
   padding: 10px;
-  min-width: 100px;
 }
 
 #button:disabled {

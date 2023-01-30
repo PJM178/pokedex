@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { getPokemonDescription, getPokemonList } from "./api/utils";
+import { getPokemonDescription, getPokemonList, getPokemonImage } from "./api/utils";
 import Select from "./components/Select";
 
 const App = () => {
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
+  const [pokemonImage, setPokemonImage] = useState(null);
  
   useEffect(() => {
     const getPokemons = async () => {
@@ -51,12 +52,12 @@ const App = () => {
           <div className="pokemon-description">{pokemonFlavorText}</div>
         </div>
         <div className="button-container-main">
-          <div className="button-container-previous">
-            <button id="button" disabled={currentPokemonIndex === 0 ? true : false} onClick={() => handlePrevious()}>Previous</button>
-          </div>
-          <div className="button-container-next">
-            <button id="button" disabled={currentPokemonIndex === pokemonList.length - 1 ? true : false} onClick={() => handleNext()}>Next</button>
-          </div>
+            <div className="button-container-previous">
+              <button id="button" disabled={currentPokemonIndex === 0 ? true : false} onClick={() => handlePrevious()}>Previous</button>
+            </div>
+            <div className="button-container-next">
+              <button id="button" disabled={currentPokemonIndex === pokemonList.length - 1 ? true : false} onClick={() => handleNext()}>Next</button>
+            </div>
         </div>
       </div>
     );

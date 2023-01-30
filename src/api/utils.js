@@ -13,3 +13,9 @@ export const getPokemonDescription = async (index) => {
 
   return pokemon.flavor_text_entries[0].flavor_text.replace(/[\n\f]/g, " ");
 };
+
+export const getPokemonImage = (index) => {
+  const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
+
+  return image;
+}
