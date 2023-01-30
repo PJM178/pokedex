@@ -9,6 +9,7 @@ const App = () => {
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
   const [pokemonImage, setPokemonImage] = useState(null);
+  const [showMoves, setShowMoves] = useState(false);
  
   useEffect(() => {
     const getPokemons = async () => {
@@ -63,7 +64,13 @@ const App = () => {
           } 
           <div className="pokemon-name">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div>
           {pokemonFlavorText ?  <div className="pokemon-description">{pokemonFlavorText}</div> : <div className="desc-placeholder"><div className="loader"></div></div>}
-          <MoveList pokemonName={pokemonList[currentPokemonIndex].name} />
+          <div className="show-moves" onClick={() => setShowMoves(showMoves ? false : true)}>
+            {showMoves 
+              ? <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∨</div></>  
+              : <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∧</div></> 
+            }
+          </div>
+          {showMoves ? <MoveList pokemonName={pokemonList[currentPokemonIndex].name} /> : null}
         </div>
         <div className="button-container-main">
             <div className="button-container-previous">

@@ -150,3 +150,14 @@ th {
 td {
   text-align: center;
 }
+
+.show-moves {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: rgba(0,0,0,0.2) solid 1px;
+  width: calc(100% - 20px)
+}
+
+.show-moves:hover {
+  cursor: pointer;
+}
