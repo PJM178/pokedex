@@ -26,6 +26,7 @@ const App = () => {
   }, [currentPokemonIndex, pokemonList]);
 
   const handlePrevious = () => {
+    setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex - 1);
   };
@@ -37,6 +38,7 @@ const App = () => {
   };
 
   const handleSelect = (e) => {
+    setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
   };

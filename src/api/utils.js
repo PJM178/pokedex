@@ -22,6 +22,15 @@ export const getPokemonImage = (index) => {
   return image;
 };
 
+export const getMoveInfo = async (move) => {
+  const moveInfo = await fetch(
+    `https://pokeapi.co/api/v2/move/${move}`
+  ).then(res => res.json());
+
+  console.log(moveInfo);
+  return moveInfo;
+}
+
 export const getPokemonMoves = async (pokemon) => {
   const moves = await (fetch(
     `https://pokeapi.co/api/v2/pokemon/${pokemon}`
@@ -30,10 +39,17 @@ export const getPokemonMoves = async (pokemon) => {
   const filteredMoves = moves.moves.filter(move => move.version_group_details.find(move => move.move_learn_method.name === 'level-up' && move.version_group.name === 'red-blue'));
 
   const moveList = [];
-  filteredMoves.forEach(element => {
-    const object = { name: element.move.name, level: element.version_group_details[0].level_learned_at };
+  // filteredMoves.forEach(element => {
+  //   const object = { name: element.move.name, level: element.version_group_details[0].level_learned_at };
+  //   moveList.push(object);
+  // });
+
+  for await (const element of filteredMoves) {
+    const moveInfo = await getMoveInfo(element.move.name);
+    const object = { name: element.move.name, level: element.version_group_details[0].level_learned_at, info: moveInfo };
     moveList.push(object);
-  });
+  }
 
   return moveList.sort((a, b) => a.level - b.level);
 }
+

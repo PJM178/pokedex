@@ -145,7 +145,7 @@ table {
 
 th {
   text-align: center;
-  width: 50%;
+  width: calc(100% / 3);
 }
 
 td {
@@ -165,4 +165,11 @@ td {
 
 .table-level-sort {
   cursor: pointer;
+}
+
+.table-div {
+  width: fit-content;
+  text-align: center;
+  padding: 2px;
+  margin: auto;
 }
