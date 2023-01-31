@@ -24,7 +24,6 @@ const MoveList = ({ pokemonName }) => {
     });
   }
 
-  console.log('not in function' ,pokemonMoves);
   if (pokemonMoves) {
     return (
       <table>
