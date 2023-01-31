@@ -29,7 +29,11 @@ export const getPokemonMoves = async (pokemon) => {
 
   const filteredMoves = moves.moves.filter(move => move.version_group_details.find(move => move.move_learn_method.name === 'level-up' && move.version_group.name === 'red-blue'));
 
-  console.log(moves.moves);
-  console.log(filteredMoves);
-  return filteredMoves;
+  const moveList = [];
+  filteredMoves.forEach(element => {
+    const object = { name: element.move.name, level: element.version_group_details[0].level_learned_at };
+    moveList.push(object);
+  });
+
+  return moveList.sort((a, b) => a.level - b.level);
 }

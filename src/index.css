@@ -162,3 +162,7 @@ td {
 .show-moves:hover {
   cursor: pointer;
 }
+
+.table-level-sort {
+  cursor: pointer;
+}

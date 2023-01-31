@@ -66,8 +66,8 @@ const App = () => {
           {pokemonFlavorText ?  <div className="pokemon-description">{pokemonFlavorText}</div> : <div className="desc-placeholder"><div className="loader"></div></div>}
           <div className="show-moves" onClick={() => setShowMoves(showMoves ? false : true)}>
             {showMoves 
-              ? <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∨</div></>  
-              : <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∧</div></> 
+              ? <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∧</div></>  
+              : <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∨</div></> 
             }
           </div>
           {showMoves ? <MoveList pokemonName={pokemonList[currentPokemonIndex].name} /> : null}
