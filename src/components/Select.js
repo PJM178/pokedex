@@ -18,6 +18,7 @@ const Wrapper = styled.div`
     transform: translateY(-50%);
     width: 16px;
     z-index: 1;
+    pointer-events: none;
   }
 `;
 
