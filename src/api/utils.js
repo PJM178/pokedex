@@ -27,7 +27,6 @@ export const getMoveInfo = async (move) => {
     `https://pokeapi.co/api/v2/move/${move}`
   ).then(res => res.json());
 
-  console.log(moveInfo);
   return moveInfo;
 }
 

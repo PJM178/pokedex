@@ -45,7 +45,6 @@ const MoveList = ({ pokemonName }) => {
       }
     });
   }
-  console.log(pokemonMoves);
   
   if (!pokemonMoves) {
     return (
