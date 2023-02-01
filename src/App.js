@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getPokemonDescription, getPokemonList, getPokemonImage } from "./api/utils";
 import Select from "./components/Select";
 import MoveList from "./components/MoveList";
+import StatList from "./components/StatList";
 
 const App = () => {
   const [pokemonList, setPokemonList] = useState(null);
@@ -10,6 +11,7 @@ const App = () => {
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
   const [pokemonImage, setPokemonImage] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
+  const [showStats, setShowStats] = useState(false);
  
   useEffect(() => {
     const getPokemons = async () => {
@@ -73,6 +75,13 @@ const App = () => {
             }
           </div>
           {showMoves ? <MoveList pokemonName={pokemonList[currentPokemonIndex].name} /> : null}
+          <div className="show-moves" onClick={() => setShowStats(showStats ? false : true)}>
+            {showStats 
+              ? <><div style={{ marginLeft: '5px' }}>Show stats</div><div style={{ marginRight: '5px' }}>∧</div></>  
+              : <><div style={{ marginLeft: '5px' }}>Show stats</div><div style={{ marginRight: '5px' }}>∨</div></> 
+            }
+          </div>
+          {showStats ? <StatList pokemonName={pokemonList[currentPokemonIndex].name} /> : null}  
         </div>
         <div className="button-container-main">
             <div className="button-container-previous">

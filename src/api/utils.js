@@ -28,7 +28,7 @@ export const getMoveInfo = async (move) => {
   ).then(res => res.json());
 
   return moveInfo;
-}
+};
 
 export const getPokemonMoves = async (pokemon) => {
   const moves = await (fetch(
@@ -50,5 +50,17 @@ export const getPokemonMoves = async (pokemon) => {
   }
 
   return moveList.sort((a, b) => a.level - b.level);
-}
+};
 
+export const getPokemonStats = async (pokemon) => {
+  const pokemonInfo = await (fetch(
+    `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+  )).then(res => res.json());
+
+  const baseStats = [];
+
+  pokemonInfo.stats.forEach(stat => baseStats.push({ name: stat.stat.name, baseStat: stat.base_stat }));
+  baseStats.push({ name: 'total', baseStat: baseStats.reduce((a, b) => a + b.baseStat, 0)});
+
+  return baseStats;
+};

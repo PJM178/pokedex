@@ -28,13 +28,13 @@ const MoveList = ({ pokemonName }) => {
   const [sort, setSort] = useState(null);
 
   useEffect(() => {
-    setPokemonMoves(null)
+    setPokemonMoves(null);
     const getMoves = async () => {
       const moves = await getPokemonMoves(pokemonName);
       setPokemonMoves(moves);
     }
-    getMoves()
-  }, [pokemonName])
+    getMoves();
+  }, [pokemonName]);
 
   if (sort !== null && pokemonMoves) {
     pokemonMoves.sort((a, b) => {
