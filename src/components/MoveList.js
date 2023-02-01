@@ -36,7 +36,7 @@ const MoveList = ({ pokemonName }) => {
     getMoves()
   }, [pokemonName])
 
-  if (sort !== null) {
+  if (sort !== null && pokemonMoves) {
     pokemonMoves.sort((a, b) => {
       if (sort) {
         return b.level - a.level;
@@ -70,7 +70,7 @@ const MoveList = ({ pokemonName }) => {
           <tr>
             <th>Name</th>
             <th>Type</th>
-            <th className="table-level-sort" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</th>
+            <th><div className="table-div-level" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</div></th>
           </tr>
         </thead>
         <tbody>

@@ -163,13 +163,20 @@ td {
   cursor: pointer;
 }
 
-.table-level-sort {
+/* .table-level-sort {
   cursor: pointer;
-}
+} */
 
 .table-div {
   width: fit-content;
   text-align: center;
   padding: 2px;
   margin: auto;
+}
+
+.table-div-level {
+  width: fit-content;
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
 }
