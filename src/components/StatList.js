@@ -23,7 +23,8 @@ const styleSheetAfter = (name, width) => {
   const style = {
     width: `calc(100% * ${width}/255)`,
     backgroundColor: statColors[Object.keys(statColors).find(color => color === name)],
-    transition: 'width 1s'
+    transition: 'width 1s',
+    maxWidth: '100%'
   };
 
   return style;
