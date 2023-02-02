@@ -10,6 +10,41 @@ const statColors = {
   speed: '#F85888',
 };
 
+const styleSheetBefore = (name) => {
+  const style = {
+    width: 0,
+    backgroundColor: statColors[Object.keys(statColors).find(color => color === name)],
+  };
+
+  return style;
+};
+
+const styleSheetAfter = (name, width) => {
+  const style = {
+    width: `calc(100% * ${width}/255)`,
+    backgroundColor: statColors[Object.keys(statColors).find(color => color === name)],
+    transition: 'width 1s'
+  };
+
+  return style;
+};
+
+const StatBar = (props) => {
+  const [value, setValue] = useState(false)
+  const styleBefore = styleSheetBefore(props.name)
+  const styleAfter = styleSheetAfter(props.name, props.width)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(true)
+    }, 10)
+  }, [])
+
+  return (
+    <div style={ !value ? styleBefore : styleAfter }>&nbsp;</div>
+  );
+};
+
 const StatList = ({ pokemonName }) => {
   const [pokemonStats, setPokemonStats] = useState(null);
 
@@ -50,7 +85,7 @@ const StatList = ({ pokemonName }) => {
             <tr key={stat.name}>
               <td style={{ textAlign: 'left', width: '1%', whiteSpace: 'nowrap' }}>{stat.name.replace('-', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}:</td>
               <td style={{ textAlign: 'left', width: '1%' }}>{stat.baseStat}</td>
-              <td><div style={{ backgroundColor: statColors[Object.keys(statColors).find(color => color === stat.name)] + '50'}}><div style={{ backgroundColor: statColors[Object.keys(statColors).find(color => color === stat.name)], width: `calc(100% * ${stat.baseStat}/255)` }}>&nbsp;</div></div></td>
+              <td><div style={{ backgroundColor: statColors[Object.keys(statColors).find(color => color === stat.name)] + '50'}}><StatBar name={stat.name} width={stat.baseStat} /></div></td>
             </tr>
           ))}
           
