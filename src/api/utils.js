@@ -22,6 +22,17 @@ export const getPokemonImage = (index) => {
   return image;
 };
 
+export const getPokemonTypes = async (pokemon) => {
+  const pokemonInfo = await (fetch(
+    `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+  )).then(res => res.json());
+
+  const types = [];
+  pokemonInfo.types.forEach(type => types.push(type.type.name));
+  
+  return types;
+};
+
 export const getMoveInfo = async (move) => {
   const moveInfo = await fetch(
     `https://pokeapi.co/api/v2/move/${move}`

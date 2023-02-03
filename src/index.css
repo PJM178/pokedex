@@ -46,6 +46,19 @@ body {
   align-items: center;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+li {
+  float: left;
+  padding: 5px;
+}
+
 .card {
   display: flex;
   align-items: center;
@@ -93,6 +106,17 @@ body {
   margin-top: 5px;
   word-break: break-all;
   text-align: center;
+}
+
+.pokemon-types {
+  display: flex;
+}
+
+.pokemon-type {
+  padding: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+  border-radius: 5px;
 }
 
 .pokemon-description {

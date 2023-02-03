@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { getPokemonDescription, getPokemonList, getPokemonImage } from "./api/utils";
+import { getPokemonDescription, getPokemonList, getPokemonImage, getPokemonTypes } from "./api/utils";
 import Select from "./components/Select";
 import MoveList from "./components/MoveList";
 import StatList from "./components/StatList";
+import GenList from "./components/GenList";
+import { typeColors }  from "./components/MoveList";
 
 const App = () => {
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
+  const [pokemonTypes, setPokemonTypes] = useState(null);
   const [pokemonImage, setPokemonImage] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
@@ -18,28 +21,34 @@ const App = () => {
       if (!pokemonList) {
         const pokemons = await getPokemonList();
         setPokemonList(pokemons);
+      } else {
+        const flavorText = await getPokemonDescription(currentPokemonIndex + 1);
+        setPokemonFlavorText(flavorText);
+        const types = await getPokemonTypes(pokemonList[currentPokemonIndex].name)
+        setPokemonTypes(types);
+        const image = getPokemonImage(currentPokemonIndex);
+        setPokemonImage(image);
       }
-      const flavorText = await getPokemonDescription(currentPokemonIndex + 1);
-      setPokemonFlavorText(flavorText);
-      const image = getPokemonImage(currentPokemonIndex);
-      setPokemonImage(image);
     };
     getPokemons();
   }, [currentPokemonIndex, pokemonList]);
 
   const handlePrevious = () => {
+    setPokemonTypes(null)
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex - 1);
   };
 
   const handleNext = () => {
+    setPokemonTypes(null)
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex + 1);
   };
 
   const handleSelect = (e) => {
+    setPokemonTypes(null)
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
@@ -48,6 +57,7 @@ const App = () => {
   if (pokemonList) {
     return (
       <div className="background">
+        <GenList />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
           {pokemonList.map(pokemon => (
             <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>
@@ -67,6 +77,7 @@ const App = () => {
             : <div style={{ width: '200px', height: '200px' }}></div>
           } 
           <div className="pokemon-name">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div>
+          {pokemonTypes ? <div className="pokemon-types">{pokemonTypes.map(type => <div key={type} className="pokemon-type" style={{ backgroundColor: typeColors[Object.keys(typeColors).find(types => types === type)] }}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>)}</div> : <div className="pokemon-types"><div className="pokemon-type">&nbsp;</div></div>}
           {pokemonFlavorText ?  <div className="pokemon-description">{pokemonFlavorText}</div> : <div className="desc-placeholder"><div className="loader"></div></div>}
           <div className="show-moves" onClick={() => setShowMoves(showMoves ? false : true)}>
             {showMoves 

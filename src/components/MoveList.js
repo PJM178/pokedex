@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getPokemonMoves } from "../api/utils";
 
-const typeColors = {
+export const typeColors = {
 	normal: '#A8A77A',
 	fire: '#EE8130',
 	water: '#6390F0',
