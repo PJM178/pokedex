@@ -5,7 +5,7 @@ export const getPokemonList = async (gen) => {
 
   const pokemons = [];
   data.pokemon_species.forEach(pokemon => pokemons.push({ name: pokemon.name, index: pokemon.url.split('/')[6], url: pokemon.url }))
-  console.log(pokemons);
+
   return {version: data.version_groups[0].name, pokemons: pokemons.sort((a, b) => a.index - b.index)};
 };
 
@@ -49,11 +49,15 @@ export const getPokemonTypes = async (pokemon) => {
 };
 
 export const getMoveInfo = async (move) => {
-  const moveInfo = await fetch(
-    `https://pokeapi.co/api/v2/move/${move}`
-  ).then(res => res.json());
-
-  return moveInfo;
+  try {
+    const moveInfo = await fetch(
+      `https://pokeapi.co/api/v2/move/${move}`
+    ).then(res => res.json());
+  
+    return moveInfo;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getPokemonMoves = async (pokemon, version) => {

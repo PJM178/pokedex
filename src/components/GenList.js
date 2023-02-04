@@ -11,7 +11,6 @@ const genList = [
 ]
 
 const GenList = ({ setSelectedGen, setVersion }) => {
-
   const handleClick = async (gen) => {
     await setVersion(null)
     await setSelectedGen(gen)
