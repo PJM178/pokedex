@@ -1,4 +1,4 @@
 # pokedex-web-app
- Pokedex with original 150 pokemons.
+ Pokedex-like web app which allows user to display pokemon along with their moves and stats from each generation. Dataset is gotten from https://pokeapi.co/.
 
  Hosted app: https://pokedex-9z8u.onrender.com/
