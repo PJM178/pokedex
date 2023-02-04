@@ -14,25 +14,28 @@ const App = () => {
   const [pokemonTypes, setPokemonTypes] = useState(null);
   const [pokemonImage, setPokemonImage] = useState(null);
   const [selectedGen, setSelectedGen] = useState({symbol: 'I', number: 1, color: '#ACD36C'});
+  const [version, setVersion] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
- 
+  console.log(currentPokemonIndex);
   useEffect(() => {
     const getPokemons = async () => {
-      if (!pokemonList) {
+      if (!pokemonList || !version) {
         const pokemons = await getPokemonList(Number(selectedGen.number));
         setPokemonList(pokemons.pokemons);
+        setVersion(pokemons.version);
+        setCurrentPokemonIndex(0)
       } else {
         const flavorText = await getPokemonDescription(currentPokemonIndex + 1);
         setPokemonFlavorText(flavorText);
         const types = await getPokemonTypes(pokemonList[currentPokemonIndex].name)
         setPokemonTypes(types);
-        const image = getPokemonImage(currentPokemonIndex);
+        const image = getPokemonImage(pokemonList[currentPokemonIndex].index);
         setPokemonImage(image);
       }
     };
     getPokemons();
-  }, [currentPokemonIndex, pokemonList, selectedGen]);
+  }, [currentPokemonIndex, pokemonList, selectedGen, version]);
 
   const handlePrevious = () => {
     setPokemonTypes(null)
@@ -59,7 +62,7 @@ const App = () => {
   if (pokemonList) {
     return (
       <div className="background">
-        <GenList setSelectedGen={setSelectedGen} />
+        <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
           {pokemonList.map(pokemon => (
             <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>

@@ -4,36 +4,48 @@ export const getPokemonList = async (gen) => {
   ).then((res) => res.json());
 
   const pokemons = [];
-  data.pokemon_species.forEach(pokemon => pokemons.push({ name: pokemon.name, index: pokemon.url.split('/')[6] }))
-
+  data.pokemon_species.forEach(pokemon => pokemons.push({ name: pokemon.name, index: pokemon.url.split('/')[6], url: pokemon.url }))
+  console.log(pokemons);
   return {version: data.version_groups[0].name, pokemons: pokemons.sort((a, b) => a.index - b.index)};
 };
 
 export const getPokemonDescription = async (index) => {
-  const pokemon = await (fetch(
-    `https://pokeapi.co/api/v2/pokemon-species/${index}`
-  ).then(res => res.json()));
-
-  const pokemonEn = pokemon.flavor_text_entries.find(pokemon => pokemon.language.name === 'en' && pokemon.version.name === 'red');
-
-  return pokemonEn.flavor_text.replace(/[\n\f]/g, " ");
+  try {
+    const pokemon = await (fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${index}`
+    ).then(res => res.json()));
+  
+    const pokemonEn = pokemon.flavor_text_entries.find(pokemon => pokemon.language.name === 'en' && pokemon.version.name === 'red');
+  
+    return pokemonEn.flavor_text.replace(/[\n\f]/g, " ");
+  } catch(e) {
+    const pokemonEn = [];
+    console.log('Error happened', e)
+    return pokemonEn;
+  }
 };
 
 export const getPokemonImage = (index) => {
-  const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
+  const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`;
 
   return image;
 };
 
 export const getPokemonTypes = async (pokemon) => {
-  const pokemonInfo = await (fetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokemon}`
-  )).then(res => res.json());
+  try {
+    const pokemonInfo = await (fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+    )).then(res => res.json());
 
-  const types = [];
-  pokemonInfo.types.forEach(type => types.push(type.type.name));
+    const types = [];
+    pokemonInfo.types.forEach(type => types.push(type.type.name));
   
-  return types;
+    return types;
+  } catch (e) {
+    const types = [];
+    console.log('Error happened', e);
+    return types;
+  }
 };
 
 export const getMoveInfo = async (move) => {
@@ -67,14 +79,20 @@ export const getPokemonMoves = async (pokemon) => {
 };
 
 export const getPokemonStats = async (pokemon) => {
-  const pokemonInfo = await (fetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokemon}`
-  )).then(res => res.json());
-
-  const baseStats = [];
-
-  pokemonInfo.stats.forEach(stat => baseStats.push({ name: stat.stat.name, baseStat: stat.base_stat }));
-  baseStats.push({ name: 'total', baseStat: baseStats.reduce((a, b) => a + b.baseStat, 0)});
-
-  return baseStats;
+  try {
+    const pokemonInfo = await (fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+    )).then(res => res.json());
+  
+    const baseStats = [];
+  
+    pokemonInfo.stats.forEach(stat => baseStats.push({ name: stat.stat.name, baseStat: stat.base_stat }));
+    baseStats.push({ name: 'total', baseStat: baseStats.reduce((a, b) => a + b.baseStat, 0)});
+  
+    return baseStats;
+  } catch (e) {
+    console.log('Error happened', e)
+    const baseStats = [];
+    return baseStats;
+  }
 };

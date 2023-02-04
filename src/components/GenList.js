@@ -10,10 +10,11 @@ const genList = [
   {symbol: 'IX', number: 9, color: '#E39091'}
 ]
 
-const GenList = ({ setSelectedGen }) => {
+const GenList = ({ setSelectedGen, setVersion }) => {
 
-  const handleClick = (gen) => {
-    setSelectedGen(gen)
+  const handleClick = async (gen) => {
+    await setVersion(null)
+    await setSelectedGen(gen)
   };
   
   return (
