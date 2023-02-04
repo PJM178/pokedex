@@ -17,7 +17,7 @@ const App = () => {
   const [version, setVersion] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  console.log(currentPokemonIndex);
+
   useEffect(() => {
     const getPokemons = async () => {
       if (!pokemonList || !version) {
@@ -26,7 +26,7 @@ const App = () => {
         setVersion(pokemons.version);
         setCurrentPokemonIndex(0)
       } else {
-        const flavorText = await getPokemonDescription(currentPokemonIndex + 1);
+        const flavorText = await getPokemonDescription(pokemonList[currentPokemonIndex].index, version.split('-')[0]);
         setPokemonFlavorText(flavorText);
         const types = await getPokemonTypes(pokemonList[currentPokemonIndex].name)
         setPokemonTypes(types);
@@ -57,8 +57,7 @@ const App = () => {
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
   };
-  console.log(selectedGen);
-  console.log(pokemonList);
+
   if (pokemonList) {
     return (
       <div className="background">
@@ -90,7 +89,7 @@ const App = () => {
               : <><div style={{ marginLeft: '5px' }}>Show moves</div><div style={{ marginRight: '5px' }}>∨</div></> 
             }
           </div>
-          {showMoves ? <MoveList pokemonName={pokemonList[currentPokemonIndex].name} /> : null}
+          {showMoves ? <MoveList pokemonName={pokemonList[currentPokemonIndex].name} version={version} /> : null}
           <div className="show-moves" onClick={() => setShowStats(showStats ? false : true)}>
             {showStats 
               ? <><div style={{ marginLeft: '5px' }}>Show stats</div><div style={{ marginRight: '5px' }}>∧</div></>  

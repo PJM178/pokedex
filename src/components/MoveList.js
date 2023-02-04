@@ -23,18 +23,18 @@ export const typeColors = {
 	fairy: '#D685AD',
 };
 
-const MoveList = ({ pokemonName }) => {
+const MoveList = ({ pokemonName, version }) => {
   const [pokemonMoves, setPokemonMoves] = useState(null);
   const [sort, setSort] = useState(null);
 
   useEffect(() => {
     setPokemonMoves(null);
     const getMoves = async () => {
-      const moves = await getPokemonMoves(pokemonName);
+      const moves = await getPokemonMoves(pokemonName, version);
       setPokemonMoves(moves);
     }
     getMoves();
-  }, [pokemonName]);
+  }, [pokemonName, version]);
 
   if (sort !== null && pokemonMoves) {
     pokemonMoves.sort((a, b) => {
