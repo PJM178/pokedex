@@ -1,9 +1,12 @@
-export const getPokemonList = async () => {
+export const getPokemonList = async (gen) => {
   const data = await fetch(
-    'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=150'
+    `https://pokeapi.co/api/v2/generation/${gen}`
   ).then((res) => res.json());
 
-  return data.results;
+  const pokemons = [];
+  data.pokemon_species.forEach(pokemon => pokemons.push({ name: pokemon.name, index: pokemon.url.split('/')[6] }))
+
+  return {version: data.version_groups[0].name, pokemons: pokemons.sort((a, b) => a.index - b.index)};
 };
 
 export const getPokemonDescription = async (index) => {
