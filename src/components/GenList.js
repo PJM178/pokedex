@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const genList = [
   {symbol: 'I', number: 1, color: '#ACD36C'},
   {symbol: 'II', number: 2, color: '#DCD677'},
@@ -11,7 +13,10 @@ const genList = [
 ]
 
 const GenList = ({ setSelectedGen, setVersion }) => {
+  const [currentGen, setCurrentGen] = useState(1);
+
   const handleClick = async (gen) => {
+    setCurrentGen(gen.number)
     await setVersion(null)
     await setSelectedGen(gen)
   };
@@ -19,7 +24,7 @@ const GenList = ({ setSelectedGen, setVersion }) => {
   return (
     <div style={{ width: '100%' }}>
       <div className="gen-container">{genList.map(gen => (
-        <div onClick={() => handleClick(gen)} className="gen-item" style={{ backgroundColor: gen.color }} key={gen.number}>{gen.symbol}</div>
+        <div onClick={() => handleClick(gen)} className={currentGen === gen.number ? "gen-item-active" : "gen-item"} style={{ backgroundColor: gen.color }} key={gen.number}>{gen.symbol}</div>
       ))}
       </div>
     </div>
