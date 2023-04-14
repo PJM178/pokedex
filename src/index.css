@@ -8,6 +8,35 @@
   }
 }
 
+#path {
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+}
+
+.pokedex-container {
+  width: 300px;
+  z-index: 2;
+}
+
+.pokedex-container > img {
+  transform-origin: right;
+}
+
+#pokedex-cover {
+  width: 300px;
+  /* position: absolute; */
+  transition: transform 2s;
+  transform: rotateY(0deg);
+}
+
+@keyframes rotateCover {
+  0% { transform:  rotate3d(0, 1, 0, 0deg) }
+  100% { transform:  rotate3d(0, 1, 0, -180deg) }
+}
+
+/* #pokedex-cover:hover {
+  transform: rotateY(180deg);
+} */
+
 .loader {
   border: 16px solid #e6dbdb;
   border-top: 16px solid darkslategray;
