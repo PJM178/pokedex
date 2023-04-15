@@ -24,7 +24,7 @@
 #pokedex-cover {
   width: 300px;
   /* position: absolute; */
-  transition: transform 2s;
+  transition: transform 500ms ease-in-out;
   transform: rotateY(0deg);
 }
 

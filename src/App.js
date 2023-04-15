@@ -63,9 +63,9 @@ const App = () => {
     return (
       <div className="background">
         <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-container">
-          <img alt="none" style={{ transform: coverOpening ? 'rotateY(180deg)' : 'rotateY(0deg)'}} src='/assets/pokedex/cover.svg' id="pokedex-cover" /> 
+          <img alt="none" style={{ transform: coverOpening ? 'rotateY(180deg)' : 'rotateY(0deg)'}} src='/assets/pokedex/pokedex-cover.svg' id="pokedex-cover" /> 
         </div>
-        <img style={{ width: '300px' ,position: 'absolute', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/rectangle.svg' />
+        <img style={{ position: 'absolute', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
         {/* <img style={{ filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt="none" src='/assets/pokedex/circle.svg' /> */}
         <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>

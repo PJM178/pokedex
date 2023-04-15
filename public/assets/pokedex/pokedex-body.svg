@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 400">
+  <g id="pokedex-body-main">
+    <rect width='300' height='400' ry="10" style="fill:rgb(255,0,0);stroke-width:2;stroke:rgb(0,0,0)" />
+    <circle cx="40" cy="40" r="33" stroke="black" stroke-width="1" fill="lightblue" />
+    <circle cx="40" cy="40" r="30" stroke="black" stroke-width="1" fill="blue" />
+    <circle cx="30" cy="30" r="10" fill="white" fill-opacity="0.9" />
+    <circle cx="23" cy="45" r="5" fill="white" fill-opacity="0.9" />
+    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L300,40" stroke="black" fill="none" stroke-width="1" />
+  </g>
+  <g id="pokedex-body-inner-frame">
+    <path d="M10,85 L100,85 M100,85 S125 85 150,65 M150,65 S175 45 200,45 M200,45 L290,45" stroke="black" fill="none" stroke-width="1" />
+    <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L290,395 M290,395 S295 395 295,390 L295,50 M295,50 S295 45 290,45" stroke="black" fill="none" stroke-width="1" />
+  </g>
+</svg>
