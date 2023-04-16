@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 400">
   <g id="pokedex-cover-cover">
-    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L300,40 L300,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="red" />
-    <rect y="100" width="300" height="300" ry="10" style="fill:rgb(255,0,0);stroke-width:2;stroke:rgb(0,0,0)" />
-    <rect y="80" width="300" height="100" style="fill:rgb(255,0,0);" />
+    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L300,40 L300,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="rgba(220,10,45,255)" />
+    <rect y="100" width="300" height="300" ry="10" style="fill:rgba(220,10,45,255);stroke-width:2;stroke:rgb(0,0,0)" />
+    <rect y="80" width="300" height="100" style="fill:rgba(220,10,45,255);" />
     <line x1="300" y1="40" x2="300" y2="180" stroke="black" fill="none" stroke-width="2" />
     <line x1="0" y1="80" x2="0" y2="180" stroke="black" fill="none" stroke-width="2" />
     <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L300,40 M300,40 L300,100" stroke="black" fill="none" stroke-width="1" />
   </g>
   <g id="pokedex-cover-lower-rectable">
-    <rect y="360" x="60" width="180" height="10" ry="5" style="fill:rgb(255,0,0);stroke-width:1;stroke:rgb(0,0,0)" />
+    <rect y="360" x="60" width="180" height="10" ry="5" style="fill:rgba(220,10,45,255);stroke-width:1;stroke:rgb(0,0,0)" />
   </g>
   <g id="pokedex-cover-middle-triangle">
-    <polygon points="5,175 5,225 35,200" fill="yellow" stroke="black" stroke-width="1" />
+    <polygon points="5,175 5,225 35,200" fill="rgba(254,196,1,255)" stroke="black" stroke-width="1" />
   </g>
 </svg>
