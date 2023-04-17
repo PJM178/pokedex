@@ -12,21 +12,39 @@
   filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
 }
 
+#pokedex-body-inner-frame {
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+}
+
 .pokedex-container {
   width: 300px;
   z-index: 2;
 }
 
-.pokedex-container > img {
+.pokedex-cover {
   transform-origin: right;
-}
-
-#pokedex-cover {
   width: 300px;
   /* position: absolute; */
-  transition: transform 500ms ease-in-out;
+  transition: transform 150ms linear;
   transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  right: 150px;
+  transform: translate(0,0);
 }
+
+.pokedex-cover-inner {
+  /* position: absolute; */
+}
+
+#pokedex-cover-inner {
+  fill: rgba(220,10,45,255);
+}
+
+/* #pokedex-cover::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+} */
 
 @keyframes rotateCover {
   0% { transform:  rotate3d(0, 1, 0, 0deg) }

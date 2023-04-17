@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 400">
+  <g id="pokedex-cover-inner-body">
+    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L265,40 L265,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="rgba(220,10,45,255)" />
+    <rect y="100" width="265" height="300" ry="10" style="fill:rgba(220,10,45,255);stroke-width:1;stroke:rgb(0,0,0)" />
+    <rect y="80" width="265" height="100" style="fill:rgba(220,10,45,255);" />
+    <rect y="300" x="215" width="50" height="100" style="fill:rgba(220,10,45,255);" />
+    <line x1="265" y1="40" x2="265" y2="180" stroke="black" fill="none" stroke-width="1" />
+    <line x1="265" y1="200" x2="265" y2="400" stroke="black" fill="none" stroke-width="1" />
+    <line x1="265" y1="400" x2="200" y2="400" stroke="black" fill="none" stroke-width="1" />
+    <line x1="0" y1="80" x2="0" y2="393" stroke="black" fill="none" stroke-width="2" />
+    <line x1="7" y1="400" x2="265" y2="400" stroke="black" fill="none" stroke-width="2" />
+    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L265,40 M265,40 L265,100" stroke="black" fill="none" stroke-width="1" />
+    <!-- <line x1="265.5" y1="40" x2="198" y2="40" stroke="black" fill="none" stroke-width="1" /> -->
+  </g>
+  <g id="pokedex-cover-inner-frame">
+    <path d="M10,85 L100,85 M100,85 S125 85 150,65 M150,65 S175 45 200,45 M200,45 L255,45" stroke="black" fill="none" stroke-width="1" />
+    <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" stroke-width="1" />
+  </g>
+  <g id="pokedex-cover-inner-panel">
+    <rect width="220" height="70" y="100" x="22.5" />
+  </g>
+</svg>

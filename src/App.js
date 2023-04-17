@@ -62,10 +62,19 @@ const App = () => {
   if (pokemonList) {
     return (
       <div className="background">
-        {/* <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-container">
-          <img alt="none" style={{ transform: coverOpening ? 'rotateY(180deg)' : 'rotateY(0deg)'}} src='/assets/pokedex/pokedex-cover.svg' id="pokedex-cover" /> 
-        </div> */}
-        <img style={{ position: 'relative', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
+        <div className="pokedex-container">
+          <div className="pokedex-cover-container">
+            <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(35px,0)' : 'rotateY(0deg) translate(0,0)'}}>
+              <div className="pokedex-cover-inner-container">
+                <img alt="none" src='/assets/pokedex/pokedex-cover-inner.svg' className="pokedex-cover-inner" />
+              </div>
+              <div className="pokedex-cover-outer-container">
+                <img alt="none" src='/assets/pokedex/pokedex-cover-outer.svg' className="pokedex-cover-outer" /> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <img style={{ position: 'absolute', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
         {/* <img style={{ filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt="none" src='/assets/pokedex/circle.svg' /> */}
         <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
