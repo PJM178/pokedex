@@ -5,7 +5,9 @@ import Select from "./components/Select";
 import MoveList from "./components/MoveList";
 import StatList from "./components/StatList";
 import GenList from "./components/GenList";
+import GenButtons from "./components/GenButtons";
 import { typeColors }  from "./components/MoveList";
+import { genList } from "./components/GenList";
 
 const App = () => {
   const [pokemonList, setPokemonList] = useState(null);
@@ -17,7 +19,7 @@ const App = () => {
   const [version, setVersion] = useState(null);
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [coverOpening, setCoverOpening] = useState(false);
+  const [coverOpening, setCoverOpening] = useState(true);
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -25,7 +27,7 @@ const App = () => {
         const pokemons = await getPokemonList(Number(selectedGen.number));
         setPokemonList(pokemons.pokemons);
         setVersion(pokemons.version);
-        setCurrentPokemonIndex(0)
+        setCurrentPokemonIndex(0);
       } else {
         const flavorText = await getPokemonDescription(pokemonList[currentPokemonIndex].index, version.split('-')[0]);
         setPokemonFlavorText(flavorText);
@@ -39,7 +41,7 @@ const App = () => {
   }, [currentPokemonIndex, pokemonList, selectedGen, version]);
 
   const handlePrevious = () => {
-    setPokemonTypes(null)
+    setPokemonTypes(null);
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(currentPokemonIndex - 1);
@@ -53,7 +55,7 @@ const App = () => {
   };
 
   const handleSelect = (e) => {
-    setPokemonTypes(null)
+    setPokemonTypes(null);
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
@@ -64,15 +66,41 @@ const App = () => {
       <div className="background">
         <div className="pokedex-container">
           <div className="pokedex-body-container">
-            <img className="pokedex-body" style={{ position: 'absolute', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
+            <img className="pokedex-body" alt='' src='/assets/pokedex/pokedex-body.svg' />
           </div>
           <div className="pokedex-cover-container">
-            <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(35px,0)' : 'rotateY(0deg) translate(0,0)'}}>
+            <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
               <div className="pokedex-cover-inner-container">
-                <img className="pokedex-cover-inner" alt="none" src='/assets/pokedex/pokedex-cover-inner.svg' />
+                {/* <img className="pokedex-cover-inner" alt="" src='/assets/pokedex/pokedex-cover-inner.svg' /> */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
+                  <g id="pokedex-cover-inner-body">
+                    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L265,40 L265,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="rgba(220,10,45,255)" />
+                    <rect y="100" width="265" height="300" ry="10" style={{ fill: 'rgba(220,10,45,255)', strokeWidth: '1', stroke: 'rgb(0,0,0)' }} />
+                    <rect y="80" width="265" height="100" style={{ fill: 'rgba(220,10,45,255)' }} />
+                    <rect y="300" x="215" width="50" height="100" style={{ fill: 'rgba(220,10,45,255)'}} />
+                    <line x1="265" y1="40" x2="265" y2="180" stroke="black" fill="none" strokeWidth="1" />
+                    <line x1="265" y1="200" x2="265" y2="400" stroke="black" fill="none" strokeWidth="1" />
+                    <line x1="265" y1="400" x2="200" y2="400" stroke="black" fill="none" strokeWidth="1" />
+                    <line x1="0" y1="80" x2="0" y2="393" stroke="black" fill="none" strokeWidth="2" />
+                    <line x1="7" y1="400" x2="265" y2="400" stroke="black" fill="none" strokeWidth="2" />
+                    <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L265,40 M265,40 L265,100" stroke="black" fill="none" strokeWidth="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-frame">
+                    <path d="M10,85 L100,85 M100,85 S125 85 150,65 M150,65 S175 45 200,45 M200,45 L255,45" stroke="black" fill="none" strokeWidth="1" />
+                    <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" strokeWidth="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-panel" onClick={() => console.log('test')}>
+                    <rect width="220" height="70" y="110" x="22.5" />
+                  </g>
+                </svg>
+                <div className="pokedex-cover-inner-buttons">
+                  {genList.map((gen, i) => (
+                    <GenButtons key={i} gen={gen} />
+                  ))}
+                </div>
               </div>
               <div className="pokedex-cover-outer-container">
-                <img className="pokedex-cover-outer" alt="none" src='/assets/pokedex/pokedex-cover-outer.svg' /> 
+                <img className="pokedex-cover-outer" alt="" src='/assets/pokedex/pokedex-cover-outer.svg' /> 
               </div>
             </div>
           </div>

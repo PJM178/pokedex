@@ -17,6 +17,9 @@
     <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" stroke-width="1" />
   </g>
   <g id="pokedex-cover-inner-panel">
-    <rect width="220" height="70" y="100" x="22.5" />
+    <rect width="220" height="70" y="110" x="22.5" />
+  </g>
+  <g id="pokedex-cover-inner-buttons">
+    <rect width="40" height="35" y="200" x="202.5" fill="rgba(41,170,253,255)" stroke="black" stroke-width="1" />
   </g>
 </svg>

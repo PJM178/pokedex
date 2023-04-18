@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const genList = [
+export const genList = [
   {symbol: 'I', number: 1, color: '#ACD36C'},
   {symbol: 'II', number: 2, color: '#DCD677'},
   {symbol: 'III', number: 3, color: '#9CD7C8'},
@@ -9,7 +9,8 @@ const genList = [
   {symbol: 'VI', number: 6, color: '#DD608C'},
   {symbol: 'VII', number: 7, color: '#E89483'},
   {symbol: 'VIII', number: 8, color: '#C97DC0'},
-  {symbol: 'IX', number: 9, color: '#E39091'}
+  {symbol: 'IX', number: 9, color: '#E39091'},
+  {symbol: '', number: '', color: ''},
 ]
 
 const GenList = ({ setSelectedGen, setVersion }) => {
