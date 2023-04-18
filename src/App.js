@@ -63,20 +63,22 @@ const App = () => {
     return (
       <div className="background">
         <div className="pokedex-container">
+          <div className="pokedex-body-container">
+            <img className="pokedex-body" style={{ position: 'absolute', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
+          </div>
           <div className="pokedex-cover-container">
             <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(35px,0)' : 'rotateY(0deg) translate(0,0)'}}>
               <div className="pokedex-cover-inner-container">
-                <img alt="none" src='/assets/pokedex/pokedex-cover-inner.svg' className="pokedex-cover-inner" />
+                <img className="pokedex-cover-inner" alt="none" src='/assets/pokedex/pokedex-cover-inner.svg' />
               </div>
               <div className="pokedex-cover-outer-container">
-                <img alt="none" src='/assets/pokedex/pokedex-cover-outer.svg' className="pokedex-cover-outer" /> 
+                <img className="pokedex-cover-outer" alt="none" src='/assets/pokedex/pokedex-cover-outer.svg' /> 
               </div>
             </div>
           </div>
         </div>
-        <img style={{ position: 'absolute', width: '300px', filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt='circle' src='/assets/pokedex/pokedex-body.svg' />
         {/* <img style={{ filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt="none" src='/assets/pokedex/circle.svg' /> */}
-        <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
+        {/* <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
           {pokemonList.map(pokemon => (
             <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>
@@ -120,7 +122,7 @@ const App = () => {
             <div className="button-container-next">
               <button id="button" disabled={currentPokemonIndex === pokemonList.length - 1 ? true : false} onClick={() => handleNext()}>Next</button>
             </div>
-        </div>
+        </div> */}
       </div>
     );
   }
