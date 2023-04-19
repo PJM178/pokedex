@@ -90,10 +90,25 @@ const App = () => {
                     <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-panel" onClick={() => console.log('test')}>
-                    <rect width="220" height="70" y="110" x="22.5" />
+                    <rect width="220" height="70" y="110" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-flat-button">
+                    <rect width="34" height="4" y="277.5" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
+                    <rect width="34" height="4" y="277.5" x="60" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-white-button">
+                    <rect width="44" height="35" y="290" x="199" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
+                    <rect width="44" height="35" y="290" x="155" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-bottom-button">
+                    <rect width="90" height="35" y="344" x="22.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" stroke-width="1" />
+                    <rect width="90" height="35" y="344" x="152.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" stroke-width="1" />
+                  </g>
+                  <g id="pokedex-cover-inner-light">
+                    <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" stroke-width="1.5" />
                   </g>
                 </svg>
-                <div className="pokedex-cover-inner-buttons">
+                <div className="pokedex-cover-inner-button-container">
                   {genList.map((gen, i) => (
                     <GenButtons key={i} gen={gen} />
                   ))}
