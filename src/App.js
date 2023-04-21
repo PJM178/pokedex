@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { getPokemonDescription, getPokemonList, getPokemonImage, getPokemonTypes } from "./api/utils";
 import Select from "./components/Select";
@@ -10,6 +10,8 @@ import { typeColors }  from "./components/MoveList";
 import { genList } from "./components/GenList";
 
 const App = () => {
+  const pokemonNameContainer = useRef(null);
+  const pokemonName = useRef(null);
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
@@ -38,6 +40,15 @@ const App = () => {
       }
     };
     getPokemons();
+    // scale the pokemon name to fit the bottom screen - using React useRefs instead of querySelector
+    if (pokemonName.current) {
+      pokemonName.current.style.fontSize = "100%";
+      if (pokemonName.current.clientWidth > pokemonNameContainer.current.clientWidth) {
+        pokemonName.current.style.fontSize = pokemonNameContainer.current.clientWidth/pokemonName.current.clientWidth*100 + "%";
+      } else {
+        pokemonName.current.style.fontSize = "100%";
+      }
+    }
   }, [currentPokemonIndex, pokemonList, selectedGen, version]);
 
   const handlePrevious = () => {
@@ -66,7 +77,92 @@ const App = () => {
       <div className="background">
         <div className="pokedex-container">
           <div className="pokedex-body-container">
-            <img className="pokedex-body" alt='' src='/assets/pokedex/pokedex-body.svg' />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+              <g id="pokedex-body-main">
+                <rect width='300' height='400' ry="10" style={{ fill: 'rgba(220,10,45,255)', strokeWidth: '2', stroke: 'rgb(0,0,0)' }} />
+                <circle cx="40" cy="40" r="33" stroke="black" strokeWidth="1" fill="rgba(221,213,220,255)" />
+                <circle cx="40" cy="40" r="30" stroke="black" strokeWidth="1" fill="blue" />
+                <circle cx="30" cy="30" r="10" fill="white" fillOpacity="0.9" />
+                <circle cx="23" cy="45" r="5" fill="white" fillOpacity="0.9" />
+                <circle cx="90" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="red" />
+                <circle cx="115" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="orange" />
+                <circle cx="140" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="green" />
+                <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L300,40" stroke="black" fill="none" strokeWidth="1" />
+              </g>
+              <g id="pokedex-body-inner-frame">
+                <path d="M10,85 L100,85 M100,85 S125 85 150,65 M150,65 S175 45 200,45 M200,45 L255,45" stroke="black" fill="none" strokeWidth="1" />
+                <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" strokeWidth="1" />
+              </g>
+              <g id="pokedex-body-hinge">
+                <line x1="265" y1="40" x2="265" y2="400" stroke="black" strokeWidth="1" />
+                <line x1="265" y1="80" x2="300" y2="80" stroke="black" strokeWidth="1" />
+                <line x1="265" y1="77" x2="300" y2="77" stroke="black" strokeWidth="1" />
+                <line x1="265" y1="360" x2="300" y2="360" stroke="black" strokeWidth="1" />
+                <line x1="265" y1="363" x2="300" y2="363" stroke="black" strokeWidth="1" />
+              </g>
+              <g id="pokedex-body-inner-container" transform="translate(0,10)">
+                <g id="pokedex-body-inner-panel" transform="translate(-7.5,0)">
+                  <rect width="200" height="100" y="200" x="30" ry="30" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
+                  <rect width="220" height="150" y="90" x="30" ry="3" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
+                  <rect width="220" height="150" y="95" x="30" ry="3" fill="rgba(222,222,222,255)" />
+                  <rect width="190" height="150" y="150" x="60" ry="3" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
+                  <rect width="190" height="150" y="150" x="55" ry="3" fill="rgba(222,222,222,255)" />
+                  <rect width="200" height="50" y="110" x="50" fill="rgba(222,222,222,255)" />
+                  <rect width="170" height="140" y="115" x="55" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
+                  <line x1="30" y1="95" x2="30" y2="270" stroke="black" fill="none" strokeWidth="1" />
+                  <line x1="250" y1="95" x2="250" y2="270" stroke="black" fill="none" strokeWidth="1" />
+                  <line x1="245" y1="300" x2="55" y2="300" stroke="black" fill="none" strokeWidth="1" />
+                  <circle cx="65" cy="277.5" r="8" stroke="black" strokeWidth="1.5" fill="red" />
+                  <circle cx="125" cy="102.5" r="3" stroke="black" strokeWidth="1.5" fill="red" />
+                  <circle cx="155" cy="102.5" r="3" stroke="black" strokeWidth="1.5" fill="red" />
+                  <rect width="30" height="2" y="265" x="195" ry="1" />
+                  <rect width="30" height="2" y="273.33" x="195" ry="1" />
+                  <rect width="30" height="2" y="281.66" x="195" ry="1" />
+                  <rect width="30" height="2" y="290" x="195" ry="1" />
+                </g>
+                <g id="pokedex-body-dpad" transform="translate(-7.5,-5)">
+                  <rect width="20" height="60" y="317.5" x="200" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect width="60" height="20" y="337.5" x="180" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect width="20" height="40" y="327.5" x="200" ry="2" fill="rgba(2,49,41,255)" />
+                  <circle cx="210" cy="347.5" r="3" fill="rgba(2,49,41,255)" stroke="black" />
+                  <line x1="200" y1="320" x2="200" y2="337.5" stroke="black" fill="none" strokeWidth="1" />
+                  <line x1="220" y1="320" x2="220" y2="337.5" stroke="black" fill="none" strokeWidth="1" />
+                  <line x1="200" y1="357.5" x2="200" y2="367.5" stroke="black" fill="none" strokeWidth="1" />
+                  <line x1="220" y1="357.5" x2="220" y2="367.5" stroke="black" fill="none" strokeWidth="1" />
+                </g>
+                <g id="pokedex-body-bottom-screen">
+                  <rect width="85" height="40" y="327.5" x="55" ry="2" fill="rgba(81,173,96,255)" stroke="black" strokeWidth="1" />
+                </g>
+                <g id="pokedex-body-bottom-buttons">
+                  <rect width="34" height="4" y="312.5" x="55" ry="3" fill="rgba(230,12,54,255)" stroke="black" strokeWidth="1" />
+                  <rect width="34" height="4" y="312.5" x="105" ry="3" fill="rgba(9,98,139,255)" stroke="black" strokeWidth="1" />
+                </g>
+                <g id="pokedex-body-bottom-circle">
+                  <circle cx="30" cy="327.5" r="14" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                </g>
+              </g>
+            </svg>
+            <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
+              {pokemonList.map(pokemon => (
+                <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>
+              ))}
+            </Select>
+            <div className="pokemon-image-background">
+              {pokemonImage ? null : <div className="loader"></div>}
+              {pokemonImage 
+              ? <img
+                  className="pokemon-image"
+                  // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`}
+                  src={pokemonImage} 
+                  alt="">
+                </img>
+              : <div style={{ width: '200px', height: '200px' }}></div>
+              } 
+            </div>
+            <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
+            <svg preserveAspectRatio="xMinYMin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 40" width="50" height="50">
+              <text  dy=".3em" dominantBaseline="middle" textAnchor="middle" y="50%" x="50%">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</text>
+            </svg>
           </div>
           <div className="pokedex-cover-container">
             <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
@@ -90,22 +186,22 @@ const App = () => {
                     <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-panel" onClick={() => console.log('test')}>
-                    <rect width="220" height="70" y="110" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
+                    <rect width="220" height="70" y="110" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-flat-button">
-                    <rect width="34" height="4" y="277.5" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
-                    <rect width="34" height="4" y="277.5" x="60" ry="3" fill="rgba(36,36,36,255)" stroke="black" stroke-width="1" />
+                    <rect width="34" height="4" y="277.5" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
+                    <rect width="34" height="4" y="277.5" x="60" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-white-button">
                     <rect width="44" height="35" y="290" x="199" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                     <rect width="44" height="35" y="290" x="155" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                   </g>
-                  <g id="pokedex-cover-inner-bottom-button">
-                    <rect width="90" height="35" y="344" x="22.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" stroke-width="1" />
-                    <rect width="90" height="35" y="344" x="152.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" stroke-width="1" />
+                  <g id="pokedex-cover-inner-bottom-screens">
+                    <rect width="100" height="35" y="344" x="22.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" strokeWidth="1" />
+                    <rect width="100" height="35" y="344" x="142.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-light">
-                    <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" stroke-width="1.5" />
+                    <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" strokeWidth="1.5" />
                   </g>
                 </svg>
                 <div className="pokedex-cover-inner-button-container">
