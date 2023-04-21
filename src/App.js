@@ -22,6 +22,7 @@ const App = () => {
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [coverOpening, setCoverOpening] = useState(true);
+  const typeColor = useRef([]);
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -45,6 +46,8 @@ const App = () => {
       pokemonName.current.style.fontSize = "100%";
       if (pokemonName.current.clientWidth > pokemonNameContainer.current.clientWidth) {
         pokemonName.current.style.fontSize = pokemonNameContainer.current.clientWidth/pokemonName.current.clientWidth*100 + "%";
+      } else if (pokemonName.current.clientHeight > pokemonNameContainer.current.clientHeight) {
+        pokemonName.current.style.fontSize = pokemonNameContainer.current.clientHeight/pokemonName.current.clientHeight*100 + "%"
       } else {
         pokemonName.current.style.fontSize = "100%";
       }
@@ -70,6 +73,7 @@ const App = () => {
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
+    typeColor.current = []
   };
 
   if (pokemonList) {
@@ -108,7 +112,7 @@ const App = () => {
                   <rect width="190" height="150" y="150" x="60" ry="3" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                   <rect width="190" height="150" y="150" x="55" ry="3" fill="rgba(222,222,222,255)" />
                   <rect width="200" height="50" y="110" x="50" fill="rgba(222,222,222,255)" />
-                  <rect width="170" height="140" y="115" x="55" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
+                  <rect width="170" height="140" y="115" x="55" ry="3" fill="rgba(229,246,255,255)" stroke="black" strokeWidth="1" />
                   <line x1="30" y1="95" x2="30" y2="270" stroke="black" fill="none" strokeWidth="1" />
                   <line x1="250" y1="95" x2="250" y2="270" stroke="black" fill="none" strokeWidth="1" />
                   <line x1="245" y1="300" x2="55" y2="300" stroke="black" fill="none" strokeWidth="1" />
@@ -160,14 +164,10 @@ const App = () => {
               } 
             </div>
             <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
-            <svg preserveAspectRatio="xMinYMin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 40" width="50" height="50">
-              <text  dy=".3em" dominantBaseline="middle" textAnchor="middle" y="50%" x="50%">{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</text>
-            </svg>
           </div>
           <div className="pokedex-cover-container">
             <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
               <div className="pokedex-cover-inner-container">
-                {/* <img className="pokedex-cover-inner" alt="" src='/assets/pokedex/pokedex-cover-inner.svg' /> */}
                 <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
                   <g id="pokedex-cover-inner-body">
                     <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L265,40 L265,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="rgba(220,10,45,255)" />
@@ -197,8 +197,8 @@ const App = () => {
                     <rect width="44" height="35" y="290" x="155" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-bottom-screens">
-                    <rect width="100" height="35" y="344" x="22.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" strokeWidth="1" />
-                    <rect width="100" height="35" y="344" x="142.5" ry="3" fill="rgba(0,46,43,255)" stroke="black" strokeWidth="1" />
+                    <rect width="100" height="35" y="344" x="22.5" ry="3" fill={typeColor.current[1] !== undefined ? typeColor.current[1] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
+                    <rect width="100" height="35" y="344" x="142.5" ry="3" fill={typeColor.current[0] !== undefined ? typeColor.current[0] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-light">
                     <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" strokeWidth="1.5" />
@@ -209,6 +209,13 @@ const App = () => {
                     <GenButtons key={i} gen={gen} />
                   ))}
                 </div>
+                {pokemonTypes 
+                  ? pokemonTypes.map((type, i) => {
+                      console.log(type);
+                      typeColor.current.push(typeColors[Object.keys(typeColors).find(types => types === type)])
+                      return <div key={type} className={`pokemon-type-${i}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                    })
+                  : null}
               </div>
               <div className="pokedex-cover-outer-container">
                 <img className="pokedex-cover-outer" alt="" src='/assets/pokedex/pokedex-cover-outer.svg' /> 

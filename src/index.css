@@ -1,6 +1,6 @@
 
 :root {
-  --pokedex-width: 300px;
+  --pokedex-width: 400px;
   --pokedex-height: calc(var(--pokedex-width)*(4/3));
 }
 
@@ -230,21 +230,19 @@ body {
 }
 
 .pokemon-image-background {
-  height: 200px;
-  width: 200px;
-  
+  height: 35%;
+  width: 56.666%;
   position: absolute;
-  background-color: rgba(187, 230, 228, 0.2);
-  border-radius: 50%;
-  border: 3px solid rgba(0, 0, 0, 0.2);
+  top: 31.25%;
+  left: 15.833%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .pokemon-image {
-  height: 200px;
-  width: 200px;
+  height: calc(var(--pokedex-height)*0.35);
+  width: auto;
   z-index: 1;
 }
 
@@ -266,15 +264,30 @@ body {
   width: fit-content;
 }
 
-.pokemon-types {
+.pokemon-type-0 {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  position: absolute;
+  height: 8.75%;
+  width: 33.333%;
+  top: 86%;
+  right: 19.1666%;
+  font-size: calc(var(--pokedex-width)*0.0733333);
 }
 
-.pokemon-type {
-  padding: 5px;
-  margin-left: 2.5px;
-  margin-right: 2.5px;
-  border-radius: 5px;
+.pokemon-type-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  position: absolute;
+  height: 8.75%;
+  width: 33.333%;
+  top: 86%;
+  left: 7.5%;
+  font-size: calc(var(--pokedex-width)*0.0733333);
 }
 
 .pokemon-description {
