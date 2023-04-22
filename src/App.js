@@ -23,6 +23,66 @@ const App = () => {
   const [showStats, setShowStats] = useState(false);
   const [coverOpening, setCoverOpening] = useState(true);
   const typeColor = useRef([]);
+  const timer = useRef();
+  const [openSelectMenu, setOpenSelectMenu] = useState(false);
+
+  const handlePrevious = () => {
+    setOpenSelectMenu(false);
+    if (currentPokemonIndex !== 0) {
+      setPokemonTypes(null);
+      setPokemonFlavorText(null);
+      setPokemonImage(null);
+      setCurrentPokemonIndex(currentPokemonIndex - 1);
+      typeColor.current = [];
+    } else {
+      setPokemonTypes(null);
+      setPokemonFlavorText(null);
+      setPokemonImage(null);
+      setCurrentPokemonIndex(pokemonList.length - 1);
+      typeColor.current = [];
+    }
+  };
+
+  const handleNext = () => {
+    setOpenSelectMenu(false);
+    if (currentPokemonIndex !== pokemonList.length - 1) {
+      setPokemonTypes(null)
+      setPokemonFlavorText(null);
+      setPokemonImage(null);
+      setCurrentPokemonIndex(currentPokemonIndex + 1);
+      typeColor.current = [];
+    } else {
+      setPokemonTypes(null)
+      setPokemonFlavorText(null);
+      setPokemonImage(null);
+      setCurrentPokemonIndex(0);
+      typeColor.current = [];
+    }
+  };
+
+  const handleSelect = (e) => {
+    setOpenSelectMenu(false);
+    setPokemonTypes(null);
+    setPokemonFlavorText(null);
+    setPokemonImage(null);
+    setCurrentPokemonIndex(e);
+    typeColor.current = [];
+  };
+
+  const handleSelectMenu = () => {
+    setOpenSelectMenu(true); 
+    setPokemonImage(null);
+    typeColor.current = [];
+    timer.current = setTimeout(() => {
+      scrollToActive();
+    }, 1);
+    return () => clearTimeout(timer.current);
+  };
+
+  const scrollToActive = () => {
+    const activeChoice = document.querySelector('.pokemon-image-select-active-choice')
+    activeChoice && activeChoice.scrollIntoView({ behavior: 'auto', block: 'center' })
+  }
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -54,32 +114,10 @@ const App = () => {
     }
   }, [currentPokemonIndex, pokemonList, selectedGen, version]);
 
-  const handlePrevious = () => {
-    setPokemonTypes(null);
-    setPokemonFlavorText(null);
-    setPokemonImage(null);
-    setCurrentPokemonIndex(currentPokemonIndex - 1);
-  };
-
-  const handleNext = () => {
-    setPokemonTypes(null)
-    setPokemonFlavorText(null);
-    setPokemonImage(null);
-    setCurrentPokemonIndex(currentPokemonIndex + 1);
-  };
-
-  const handleSelect = (e) => {
-    setPokemonTypes(null);
-    setPokemonFlavorText(null);
-    setPokemonImage(null);
-    setCurrentPokemonIndex(e);
-    typeColor.current = []
-  };
-
   if (pokemonList) {
     return (
       <div className="background">
-        <div className="pokedex-container">
+        <div className="pokedex-container" style={{ transform: coverOpening ? 'translate(-170px, 0)' : 'translate(0,0)'}}>
           <div className="pokedex-body-container">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
               <g id="pokedex-body-main">
@@ -125,9 +163,12 @@ const App = () => {
                   <rect width="30" height="2" y="290" x="195" ry="1" />
                 </g>
                 <g id="pokedex-body-dpad" transform="translate(-7.5,-5)">
-                  <rect width="20" height="60" y="317.5" x="200" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
-                  <rect width="60" height="20" y="337.5" x="180" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
-                  <rect width="20" height="40" y="327.5" x="200" ry="2" fill="rgba(2,49,41,255)" />
+                  <rect id="pokedex-body-dpad-up" onClick={() => handleSelectMenu()} width="20" height="20" y="317.5" x="200" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect id="pokedex-body-dpad-down" onClick={() => handleSelectMenu()} width="20" height="20" y="357.5" x="200" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect id="pokedex-body-dpad-left" onClick={() => handlePrevious()} width="20" height="20" y="337.5" x="180" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect id="pokedex-body-dpad-right" onClick={() => handleNext()} width="20" height="20" y="337.5" x="220" ry="2" fill="rgba(2,49,41,255)" stroke="black" strokeWidth="1" />
+                  <rect width="20" height="22" y="336.5" x="200" ry="2" fill="rgba(2,49,41,255)" />
+                  <rect width="22" height="20" y="336.5" x="199" ry="2" fill="rgba(2,49,41,255)" />
                   <circle cx="210" cy="347.5" r="3" fill="rgba(2,49,41,255)" stroke="black" />
                   <line x1="200" y1="320" x2="200" y2="337.5" stroke="black" fill="none" strokeWidth="1" />
                   <line x1="220" y1="320" x2="220" y2="337.5" stroke="black" fill="none" strokeWidth="1" />
@@ -152,21 +193,27 @@ const App = () => {
               ))}
             </Select>
             <div className="pokemon-image-background">
-              {pokemonImage ? null : <div className="loader"></div>}
-              {pokemonImage 
-              ? <img
-                  className="pokemon-image"
-                  // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`}
-                  src={pokemonImage} 
-                  alt="">
-                </img>
-              : <div style={{ width: '200px', height: '200px' }}></div>
+              {pokemonImage ? null : !openSelectMenu && <div className="loader"></div>}
+              {pokemonImage
+                ? <img
+                    className="pokemon-image"
+                    // src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPokemonIndex + 1}.png`}
+                    src={pokemonImage} 
+                    alt="">
+                  </img>
+                : openSelectMenu && <ul className="pokemon-image-select-ul">
+                    {pokemonList.map((pokemon, i) => 
+                      <li key={pokemon.url} className={currentPokemonIndex === i ? "pokemon-image-select-active-choice" : "pokemon-image-select-li"} onClick={() => handleSelect(i)}>
+                        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                      </li>  
+                    )}
+                  </ul>
               } 
             </div>
             <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
           </div>
-          <div className="pokedex-cover-container">
-            <div onClick={() => setCoverOpening(!coverOpening)} className="pokedex-cover" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
+          <div className="pokedex-cover-container" onClick={() => {setCoverOpening(!coverOpening); typeColor.current = []}} style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
+            <div className="pokedex-cover">
               <div className="pokedex-cover-inner-container">
                 <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
                   <g id="pokedex-cover-inner-body">
@@ -192,7 +239,7 @@ const App = () => {
                     <rect width="34" height="4" y="277.5" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
                     <rect width="34" height="4" y="277.5" x="60" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
                   </g>
-                  <g id="pokedex-cover-inner-white-button">
+                  <g id="pokedex-cover-inner-white-button" style={{ filter: "drop-shadow( 0px 1px 1px rgba(0, 0, 0, 0.8))" }}>
                     <rect width="44" height="35" y="290" x="199" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                     <rect width="44" height="35" y="290" x="155" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                   </g>
@@ -211,7 +258,6 @@ const App = () => {
                 </div>
                 {pokemonTypes 
                   ? pokemonTypes.map((type, i) => {
-                      console.log(type);
                       typeColor.current.push(typeColors[Object.keys(typeColors).find(types => types === type)])
                       return <div key={type} className={`pokemon-type-${i}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>
                     })
@@ -223,8 +269,8 @@ const App = () => {
             </div>
           </div>
         </div>
-        {/* <img style={{ filter: 'drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))' }} alt="none" src='/assets/pokedex/circle.svg' /> */}
-        {/* <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
+        {/* Old pokedex code - maybe delete or leave here for prosperity
+        <GenList setSelectedGen={setSelectedGen} setVersion={setVersion} />
         <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
           {pokemonList.map(pokemon => (
             <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>
