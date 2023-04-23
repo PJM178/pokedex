@@ -27,17 +27,16 @@ const SelectEl = styled.select`
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  padding-left: 20px;
-  padding-right: 60px;
-  height: 50px;
+  width: 200px;
+  height: 200px;
   font-size: 1rem;
+  text-align: center;
 `;
 
 const Select = (props) => {
   return (
     <Wrapper>
-      <SelectEl {...props} />
+      <SelectEl size={"151"} {...props} />
     </Wrapper>
   );
 };

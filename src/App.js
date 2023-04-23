@@ -6,12 +6,15 @@ import MoveList from "./components/MoveList";
 import StatList from "./components/StatList";
 import GenList from "./components/GenList";
 import GenButtons from "./components/GenButtons";
+import FlavorText from "./components/FlavorTextScroll";
 import { typeColors }  from "./components/MoveList";
 import { genList } from "./components/GenList";
 
 const App = () => {
   const pokemonNameContainer = useRef(null);
   const pokemonName = useRef(null);
+  const pokemonFlavorContainer = useRef(null);
+  const pokemonFlavor = useRef(null);
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
@@ -79,10 +82,21 @@ const App = () => {
     return () => clearTimeout(timer.current);
   };
 
+  // For pressing dpad up button to scroll the pokemon list 
+  // const handleMenuDpadUp = () => {
+  //   scrollToActive()
+  //   typeColor.current = [];
+  //   if (currentPokemonIndex !== 0) {
+  //     setCurrentPokemonIndex(currentPokemonIndex - 1);
+  //   } else {
+  //     setCurrentPokemonIndex(pokemonList.length - 1);
+  //   }
+  // };
+
   const scrollToActive = () => {
     const activeChoice = document.querySelector('.pokemon-image-select-active-choice')
     activeChoice && activeChoice.scrollIntoView({ behavior: 'auto', block: 'center' })
-  }
+  };
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -187,11 +201,6 @@ const App = () => {
                 </g>
               </g>
             </svg>
-            <Select value={pokemonList[currentPokemonIndex].name} onChange={(e) => handleSelect(e.target.options.selectedIndex)}>
-              {pokemonList.map(pokemon => (
-                <option key={pokemon.url} value={pokemon.name}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</option>
-              ))}
-            </Select>
             <div className="pokemon-image-background">
               {pokemonImage ? null : !openSelectMenu && <div className="loader"></div>}
               {pokemonImage
@@ -233,7 +242,7 @@ const App = () => {
                     <path d="M10,85 S5 85 5,90 L5,390 M5,390 S5 395 10,395 L255,395 M255,395 S260 395 260,390 L260,50 M260,50 S260 45 255,45" stroke="black" fill="none" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-panel" onClick={() => console.log('test')}>
-                    <rect width="220" height="70" y="110" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
+                    <rect width="220" height="70" y="110" x="22.5" ry="3" fill="rgba(229,246,255,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-flat-button">
                     <rect width="34" height="4" y="277.5" x="22.5" ry="3" fill="rgba(36,36,36,255)" stroke="black" strokeWidth="1" />
@@ -261,7 +270,14 @@ const App = () => {
                       typeColor.current.push(typeColors[Object.keys(typeColors).find(types => types === type)])
                       return <div key={type} className={`pokemon-type-${i}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>
                     })
-                  : null}
+                  : null
+                }
+                {pokemonFlavorText &&
+                  <div ref={pokemonFlavorContainer} className="pokemon-flavor-container">
+                    <div ref={pokemonFlavor} className="pokemon-flavor">{pokemonFlavorText}</div>
+                    {pokemonFlavor.current && <FlavorText pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} />}
+                  </div>
+                }
               </div>
               <div className="pokedex-cover-outer-container">
                 <img className="pokedex-cover-outer" alt="" src='/assets/pokedex/pokedex-cover-outer.svg' /> 

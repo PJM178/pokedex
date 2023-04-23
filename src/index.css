@@ -1,6 +1,6 @@
 
 :root {
-  --pokedex-width: 400px;
+  --pokedex-width: 300px;
   --pokedex-height: calc(var(--pokedex-width)*(4/3));
 }
 
@@ -283,14 +283,14 @@ body {
   text-align: center;
   font-size: calc(var(--pokedex-width)*0.04444);
   font-weight: bold;
-  margin-left: 0.5px;
-  margin-right: 0.5px;
 }
 
 .pokemon-image-select-li:hover {
   cursor: pointer;
   background-color: lightblue;
   filter: brightness(90%);
+  margin-left: 1pt;
+  margin-right: 0.5px;
 }
 
 .pokemon-image-select-active-choice {
@@ -352,12 +352,27 @@ body {
   transform-style: preserve-3d;
 }
 
-.pokemon-description {
-  font-size: 18px;
+.pokemon-flavor-container {
+  width: 73.3333%;
+  height: 17.5%;
+  font-size: calc(var(--pokedex-width)*0.053333);
+  font-weight: 700;
   line-height: 120%;
   text-align: center;
-  padding: 10px;
   word-break: break-word;
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 27.5%;
+  left: 7.5%;
+  overflow: scroll;
+}
+
+.pokemon-flavor-container::-webkit-scrollbar {
+  display: none;
+}
+
+.pokemon-flavor {
+  padding: 1.6666%;
 }
 
 .button-container-main {
