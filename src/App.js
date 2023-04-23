@@ -25,9 +25,9 @@ const App = () => {
   const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [coverOpening, setCoverOpening] = useState(true);
-  const typeColor = useRef([]);
   const timer = useRef();
   const [openSelectMenu, setOpenSelectMenu] = useState(false);
+  const [colorTest, setColorTest] = useState([])
 
   const handlePrevious = () => {
     setOpenSelectMenu(false);
@@ -36,13 +36,11 @@ const App = () => {
       setPokemonFlavorText(null);
       setPokemonImage(null);
       setCurrentPokemonIndex(currentPokemonIndex - 1);
-      typeColor.current = [];
     } else {
       setPokemonTypes(null);
       setPokemonFlavorText(null);
       setPokemonImage(null);
       setCurrentPokemonIndex(pokemonList.length - 1);
-      typeColor.current = [];
     }
   };
 
@@ -53,13 +51,11 @@ const App = () => {
       setPokemonFlavorText(null);
       setPokemonImage(null);
       setCurrentPokemonIndex(currentPokemonIndex + 1);
-      typeColor.current = [];
     } else {
       setPokemonTypes(null)
       setPokemonFlavorText(null);
       setPokemonImage(null);
       setCurrentPokemonIndex(0);
-      typeColor.current = [];
     }
   };
 
@@ -69,13 +65,11 @@ const App = () => {
     setPokemonFlavorText(null);
     setPokemonImage(null);
     setCurrentPokemonIndex(e);
-    typeColor.current = [];
   };
 
   const handleSelectMenu = () => {
     setOpenSelectMenu(true); 
     setPokemonImage(null);
-    typeColor.current = [];
     timer.current = setTimeout(() => {
       scrollToActive();
     }, 1);
@@ -85,7 +79,6 @@ const App = () => {
   // For pressing dpad up button to scroll the pokemon list 
   // const handleMenuDpadUp = () => {
   //   scrollToActive()
-  //   typeColor.current = [];
   //   if (currentPokemonIndex !== 0) {
   //     setCurrentPokemonIndex(currentPokemonIndex - 1);
   //   } else {
@@ -127,6 +120,15 @@ const App = () => {
       }
     }
   }, [currentPokemonIndex, pokemonList, selectedGen, version]);
+
+  useEffect(() => {
+    setColorTest([]);
+    if (pokemonTypes) {
+      pokemonTypes.map((type, i) => (
+        setColorTest(colorTest => [...colorTest, typeColors[Object.keys(typeColors).find(types => types === type)]])
+      ))
+    }
+  }, [pokemonTypes])
 
   if (pokemonList) {
     return (
@@ -221,7 +223,7 @@ const App = () => {
             </div>
             <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
           </div>
-          <div className="pokedex-cover-container" onClick={() => {setCoverOpening(!coverOpening); typeColor.current = []}} style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
+          <div className="pokedex-cover-container" onClick={() => setCoverOpening(!coverOpening)} style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
             <div className="pokedex-cover">
               <div className="pokedex-cover-inner-container">
                 <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
@@ -253,8 +255,8 @@ const App = () => {
                     <rect width="44" height="35" y="290" x="155" ry="2" fill="rgba(222,222,222,255)" stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-bottom-screens">
-                    <rect width="100" height="35" y="344" x="22.5" ry="3" fill={typeColor.current[1] !== undefined ? typeColor.current[1] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
-                    <rect width="100" height="35" y="344" x="142.5" ry="3" fill={typeColor.current[0] !== undefined ? typeColor.current[0] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
+                    <rect width="100" height="35" y="344" x="22.5" ry="3" fill={colorTest[1] !== undefined ? colorTest[1] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
+                    <rect width="100" height="35" y="344" x="142.5" ry="3" fill={colorTest[0] !== undefined ? colorTest[0] : "rgba(0,46,43,255)"} stroke="black" strokeWidth="1" />
                   </g>
                   <g id="pokedex-cover-inner-light">
                     <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" strokeWidth="1.5" />
@@ -267,7 +269,6 @@ const App = () => {
                 </div>
                 {pokemonTypes 
                   ? pokemonTypes.map((type, i) => {
-                      typeColor.current.push(typeColors[Object.keys(typeColors).find(types => types === type)])
                       return <div key={type} className={`pokemon-type-${i}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>
                     })
                   : null

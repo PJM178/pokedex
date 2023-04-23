@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const FlavorTextScroll = ({ pokemonFlavorContainer, pokemonFlavor }) => {
   const intervalTimer = useRef(null);
