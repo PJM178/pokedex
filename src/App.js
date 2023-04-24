@@ -6,7 +6,7 @@ import MoveList from "./components/MoveList";
 import StatList from "./components/StatList";
 import GenList from "./components/GenList";
 import GenButtons from "./components/GenButtons";
-import FlavorText from "./components/FlavorTextScroll";
+import FlavorTextScroll from "./components/FlavorTextScroll";
 import { typeColors }  from "./components/MoveList";
 import { genList } from "./components/GenList";
 
@@ -15,6 +15,7 @@ const App = () => {
   const pokemonName = useRef(null);
   const pokemonFlavorContainer = useRef(null);
   const pokemonFlavor = useRef(null);
+  const pokemonMoves = useRef(null);
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
   const [currentPokemonIndex, setCurrentPokemonIndex] = useState(0);
@@ -22,7 +23,7 @@ const App = () => {
   const [pokemonImage, setPokemonImage] = useState(null);
   const [selectedGen, setSelectedGen] = useState({symbol: 'I', number: 1, color: '#ACD36C'});
   const [version, setVersion] = useState(null);
-  const [showMoves, setShowMoves] = useState(false);
+  // const [showMoves, setShowMoves] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [coverOpening, setCoverOpening] = useState(true);
   const timer = useRef();
@@ -61,10 +62,14 @@ const App = () => {
 
   const handleSelect = (e) => {
     setOpenSelectMenu(false);
-    setPokemonTypes(null);
-    setPokemonFlavorText(null);
-    setPokemonImage(null);
-    setCurrentPokemonIndex(e);
+    const image = getPokemonImage(pokemonList[currentPokemonIndex].index);
+    setPokemonImage(image);
+    if (currentPokemonIndex !== e) {
+      setPokemonTypes(null);
+      setPokemonFlavorText(null);
+      setPokemonImage(null);
+      setCurrentPokemonIndex(e);
+    }
   };
 
   const handleSelectMenu = () => {
@@ -92,6 +97,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log('test')
     const getPokemons = async () => {
       if (!pokemonList || !version) {
         const pokemons = await getPokemonList(Number(selectedGen.number));
@@ -129,7 +135,7 @@ const App = () => {
       ))
     }
   }, [pokemonTypes])
-
+  console.log(pokemonMoves.current)
   if (pokemonList) {
     return (
       <div className="background">
@@ -273,10 +279,12 @@ const App = () => {
                     })
                   : null
                 }
-                {pokemonFlavorText &&
+                {pokemonMoves &&
                   <div ref={pokemonFlavorContainer} className="pokemon-flavor-container">
-                    <div ref={pokemonFlavor} className="pokemon-flavor">{pokemonFlavorText}</div>
-                    {pokemonFlavor.current && <FlavorText pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} />}
+                    {/* <div ref={pokemonFlavor} className="pokemon-flavor">{pokemonFlavorText}</div>
+                    {pokemonFlavor.current && <FlavorText pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} />} */}
+                    <MoveList ref={pokemonMoves} pokemonName={pokemonList[currentPokemonIndex].name} version={version} />
+                    {pokemonMoves.current && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonMoves} />}
                   </div>
                 }
               </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 
 import { getPokemonMoves } from "../api/utils";
 
@@ -23,7 +23,7 @@ export const typeColors = {
 	fairy: '#D685AD',
 };
 
-const MoveList = ({ pokemonName, version }) => {
+const MoveList = forwardRef(({ pokemonName, version }, ref) => {
   const [pokemonMoves, setPokemonMoves] = useState(null);
   const [sort, setSort] = useState(null);
 
@@ -46,45 +46,47 @@ const MoveList = ({ pokemonName, version }) => {
     });
   }
   
-  if (!pokemonMoves) {
+  // if (!pokemonMoves) {
+  //   return (
+  //     <>
+  //       <table>
+  //         <thead>
+  //           <tr>
+  //             <th>Name</th>
+  //             <th>Type</th>
+  //             <th className="table-level-sort" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</th>
+  //           </tr>
+  //         </thead>
+  //       </table>
+  //       <div className="loader" style={{ marginTop: '1rem' }}></div>
+  //     </>
+  //   );
+  // }
+
+  if (pokemonMoves) {
     return (
-      <>
+      <div ref={ref} className="pokemon-moves-container">
         <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>Type</th>
-              <th className="table-level-sort" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</th>
+              <th><div className="table-div-level" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</div></th>
             </tr>
           </thead>
+          <tbody>
+            {pokemonMoves.map(move => (
+              <tr key={move.name}>
+                <td>{move.name.replace('-', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</td>
+                <td><div className="table-div" style={{ backgroundColor: typeColors[Object.keys(typeColors).find(type => type === move.info.type.name)] }}>{move.info.type.name.charAt(0).toUpperCase() + move.info.type.name.slice(1)}</div></td>
+                <td>{move.level}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-        <div className="loader" style={{ marginTop: '1rem' }}></div>
-      </>
+      </div>
     );
   }
-
-  if (pokemonMoves) {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th><div className="table-div-level" onClick={() => setSort(!sort ? true : false)}>{!sort ? <>Level&#x25b4;</> : <>Level&#x25be;</>}</div></th>
-          </tr>
-        </thead>
-        <tbody>
-          {pokemonMoves.map(move => (
-            <tr key={move.name}>
-              <td>{move.name.replace('-', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</td>
-              <td><div className="table-div" style={{ backgroundColor: typeColors[Object.keys(typeColors).find(type => type === move.info.type.name)] }}>{move.info.type.name.charAt(0).toUpperCase() + move.info.type.name.slice(1)}</div></td>
-              <td>{move.level}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-};
+});
 
 export default MoveList;

@@ -375,6 +375,10 @@ body {
   padding: 1.6666%;
 }
 
+.pokemon-movelist-container {
+  transform: rotateY(180deg);
+}
+
 .button-container-main {
   display: flex;
   margin-top: auto;
@@ -408,12 +412,6 @@ body {
 
 #button:hover {
   opacity: 0.8;
-}
-
-table {
-  width: 100%;
-  padding: 10px;
-  margin-top: -10px;
 }
 
 th {
