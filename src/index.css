@@ -379,6 +379,16 @@ body {
   transform: rotateY(180deg);
 }
 
+#pokedex-white-button-left:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}
+
+#pokedex-white-button-right:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}
+
 .button-container-main {
   display: flex;
   margin-top: auto;
