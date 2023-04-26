@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 import { getPokemonStats } from "../api/utils";
 
 const statColors = {
   hp: '#FF0000',
   attack: '#F08030',
   defense: '#F8D030',
-  'special-attack': '#6890F0',
-  'special-defense': '#78C850',
+  'Sp. Atk': '#6890F0',
+  'Sp. Def': '#78C850',
   speed: '#F85888',
 };
 
@@ -46,13 +46,15 @@ const StatBar = (props) => {
   );
 };
 
-const StatList = ({ pokemonName }) => {
+const StatList = forwardRef(({ pokemonName }, ref) => {
   const [pokemonStats, setPokemonStats] = useState(null);
 
   useEffect(() => {
     setPokemonStats(null);
     const getStats = async () => {
       const stats = await getPokemonStats(pokemonName);
+      stats[3].name = 'Sp. Atk'
+      stats[4].name = 'Sp. Def'
       setPokemonStats(stats);
     }
     getStats();
@@ -75,25 +77,22 @@ const StatList = ({ pokemonName }) => {
 
   if (pokemonStats) {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th colSpan={3} style={{ textAlign: 'center', width: 'auto' }}>Stat</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pokemonStats.map(stat => (
-            <tr key={stat.name}>
-              <td style={{ textAlign: 'left', width: '1%', whiteSpace: 'nowrap' }}>{stat.name.replace('-', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}:</td>
-              <td style={{ textAlign: 'left', width: '1%' }}>{stat.baseStat}</td>
-              <td><div style={{ backgroundColor: statColors[Object.keys(statColors).find(color => color === stat.name)] + '50'}}><StatBar name={stat.name} width={stat.baseStat} /></div></td>
-            </tr>
-          ))}
-          
-        </tbody>
-      </table>
+      <div ref={ref} className="pokemon-stats-container">
+        <table>
+          <tbody>
+            {pokemonStats.map(stat => (
+              <tr key={stat.name}>
+                <td style={{ textAlign: 'left', width: '1%', whiteSpace: 'nowrap' }}>{stat.name.replace('-', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}:</td>
+                <td style={{ textAlign: 'left', width: '15%' }}><div style={{ width: 'fit-content' }}>{stat.baseStat}</div></td>
+                <td><div style={{ backgroundColor: statColors[Object.keys(statColors).find(color => color === stat.name)] + '50'}}><StatBar name={stat.name} width={stat.baseStat} /></div></td>
+              </tr>
+            ))}
+            
+          </tbody>
+        </table>
+      </div>
     );
   }
-};
+});
 
 export default StatList;

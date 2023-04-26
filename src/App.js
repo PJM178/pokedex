@@ -307,7 +307,7 @@ const App = () => {
                     {pokemonMoves.current && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonMoves} />}
                   </div>
                 } */}
-                <InnerCoverPanel 
+                <InnerCoverPanel
                   type={panelType} 
                   pokemonFlavorText={pokemonFlavorText} 
                   pokemonList={pokemonList}

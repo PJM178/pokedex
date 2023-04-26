@@ -1,35 +1,43 @@
 import { useState } from "react";
 
 import FlavorTextScroll from "./FlavorTextScroll";
+import FlavorPanelContainer from "./FlavorPanelContainer";
 import MoveList from "./MoveList";
+import StatList from "./StatList";
 
 const InnerCoverPanel = ({ type, pokemonFlavorText, pokemonList, version, currentPokemonIndex }) => {
   const [pokemonFlavor, setPokemonFlavor] = useState(null);
   const [pokemonMoves, setPokemonMoves] = useState(null);
+  const [pokemonStats, setPokemonStats] = useState(null);
   const [pokemonFlavorContainer, setPokemonFlavorContainer] = useState(null);
-
+  const [stopScrolling, setStopScrolling] = useState(false)
+  console.log(stopScrolling);
+  console.log(pokemonStats);
   switch (type) {
     case 'flavor':
       return (
-        <div ref={setPokemonFlavorContainer} className="pokemon-flavor-container">
+        <FlavorPanelContainer ref={setPokemonFlavorContainer} setStopScrolling={setStopScrolling} >
           <div ref={setPokemonFlavor} className="pokemon-flavor">{pokemonFlavorText}</div>
-          {pokemonFlavorText && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} type={type} />}
-        </div>
+          {pokemonFlavorText && <FlavorTextScroll stopScrolling={stopScrolling} pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} type={type} />}
+        </FlavorPanelContainer>
       );
     case 'moves':
       return (
-        <div ref={setPokemonFlavorContainer} className="pokemon-flavor-container">
+        <FlavorPanelContainer ref={setPokemonFlavorContainer} setStopScrolling={setStopScrolling} >
           <MoveList ref={setPokemonMoves} pokemonName={pokemonList[currentPokemonIndex].name} version={version} />
-          {pokemonMoves && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonMoves} type={type} />}
-        </div>
+          {pokemonMoves && <FlavorTextScroll stopScrolling={stopScrolling} pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonMoves} type={type} />}
+        </FlavorPanelContainer>
       );
     case 'stats':
       return (
-        <div>stats</div>
+        <FlavorPanelContainer ref={setPokemonFlavorContainer} setStopScrolling={setStopScrolling} >
+          <StatList ref={setPokemonStats} pokemonName={pokemonList[currentPokemonIndex].name} />  
+          {pokemonStats && <FlavorTextScroll stopScrolling={stopScrolling} pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonStats} type={type} />}
+        </FlavorPanelContainer>
       );
     default:
       return (
-        <div>null</div>
+        null
       );
   }
 };
