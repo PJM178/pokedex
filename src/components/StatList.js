@@ -60,21 +60,6 @@ const StatList = forwardRef(({ pokemonName }, ref) => {
     getStats();
   }, [pokemonName])
 
-  if (!pokemonStats) {
-    return (
-      <>
-      <table>
-         <thead>
-           <tr>
-             <th>Stat</th>
-           </tr>
-         </thead>
-       </table>
-       <div className="loader" style={{ marginTop: '1rem' }}></div>
-     </>
-    );
-  }
-
   if (pokemonStats) {
     return (
       <div ref={ref} className="pokemon-stats-container">

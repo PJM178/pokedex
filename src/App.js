@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 
 import { getPokemonDescription, getPokemonList, getPokemonImage, getPokemonTypes } from "./api/utils";
-import Select from "./components/Select";
-import MoveList from "./components/MoveList";
-import StatList from "./components/StatList";
-import GenList from "./components/GenList";
+// import Select from "./components/Select";
+// import MoveList from "./components/MoveList";
+// import StatList from "./components/StatList";
+// import GenList from "./components/GenList";
 import InnerCoverPanel from "./components/InnerCoverPanel";
 import GenButtons from "./components/GenButtons";
 // import FlavorTextScroll from "./components/FlavorTextScroll";
@@ -23,8 +23,8 @@ const App = () => {
   const [selectedGen, setSelectedGen] = useState({symbol: 'I', number: 1, color: '#ACD36C'});
   const [version, setVersion] = useState(null);
   // const [showMoves, setShowMoves] = useState(false);
-  const [showStats, setShowStats] = useState(false);
-  const [coverOpening, setCoverOpening] = useState(true);
+  // const [showStats, setShowStats] = useState(false);
+  const [coverOpening, setCoverOpening] = useState(false);
   const timer = useRef();
   const [openSelectMenu, setOpenSelectMenu] = useState(false);
   const [colorTest, setColorTest] = useState([]);
@@ -120,6 +120,7 @@ const App = () => {
   useEffect(() => {
     const getPokemons = async () => {
       if (!pokemonList || !version) {
+        setPanelType('flavor')
         const pokemons = await getPokemonList(Number(selectedGen.number));
         setPokemonList(pokemons.pokemons);
         setVersion(pokemons.version);
@@ -249,11 +250,11 @@ const App = () => {
             </div>
             <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
           </div>
-          <div className="pokedex-cover-container" onClick={() => setCoverOpening(coverOpening)} style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
+          <div className="pokedex-cover-container" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
             <div className="pokedex-cover">
               <div className="pokedex-cover-inner-container">
                 <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
-                  <g id="pokedex-cover-inner-body">
+                  <g id="pokedex-cover-inner-body" onClick={() => setCoverOpening(!coverOpening)}>
                     <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 L265,40 L265,100 L0,100 L0,80 L100,80 Z" stroke="none" fill="rgba(220,10,45,255)" />
                     <rect y="100" width="265" height="300" ry="10" style={{ fill: 'rgba(220,10,45,255)', strokeWidth: '1', stroke: 'rgb(0,0,0)' }} />
                     <rect y="80" width="265" height="100" style={{ fill: 'rgba(220,10,45,255)' }} />
@@ -288,25 +289,13 @@ const App = () => {
                     <circle cx="35" cy="320" r="12" fill="rgba(200,179,23,255)" stroke="black" strokeWidth="1.5" />
                   </g>
                 </svg>
-                <div className="pokedex-cover-inner-button-container">
-                  {genList.map((gen, i) => (
-                    <GenButtons key={i} gen={gen} />
-                  ))}
-                </div>
+                <GenButtons genList={genList} setSelectedGen={setSelectedGen} setVersion={setVersion} selectedGen={selectedGen} />
                 {pokemonTypes 
                   ? pokemonTypes.map((type, i) => {
                       return <div key={type} className={`pokemon-type-${i}`}>{type.charAt(0).toUpperCase() + type.slice(1)}</div>
                     })
                   : null
                 }
-                {/* {pokemonFlavor &&
-                  <div ref={pokemonFlavorContainer} className="pokemon-flavor-container">
-                    <div ref={pokemonFlavor} className="pokemon-flavor">{pokemonFlavorText}</div>
-                    {pokemonFlavor.current && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonFlavor} />}
-                    <MoveList ref={pokemonMoves} pokemonName={pokemonList[currentPokemonIndex].name} version={version} />
-                    {pokemonMoves.current && <FlavorTextScroll pokemonFlavorContainer={pokemonFlavorContainer} pokemonFlavor={pokemonMoves} />}
-                  </div>
-                } */}
                 <InnerCoverPanel
                   type={panelType} 
                   pokemonFlavorText={pokemonFlavorText} 
@@ -315,7 +304,7 @@ const App = () => {
                   currentPokemonIndex={currentPokemonIndex}
                 />
               </div>
-              <div className="pokedex-cover-outer-container">
+              <div className="pokedex-cover-outer-container" onClick={() => setCoverOpening(!coverOpening)}>
                 <img className="pokedex-cover-outer" alt="" src='/assets/pokedex/pokedex-cover-outer.svg' /> 
               </div>
             </div>
