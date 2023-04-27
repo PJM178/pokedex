@@ -14,6 +14,11 @@ import { genList } from "./components/GenList";
 const App = () => {
   const pokemonNameContainer = useRef(null);
   const pokemonName = useRef(null);
+  const pokedexContainer = useRef(null);
+  const pokedexCoverContainer = useRef(null);
+  const touchstartX = useRef(0);
+  const touchendX = useRef(0);
+  const [media, setMedia] = useState(window.matchMedia('(max-width: 500px)').matches);
   // const pokemonMoves = useRef(null);
   const [pokemonList, setPokemonList] = useState(null);
   const [pokemonFlavorText, setPokemonFlavorText] = useState(null);
@@ -157,10 +162,38 @@ const App = () => {
     }
   }, [pokemonTypes])
 
+  useEffect(() => {
+    window.matchMedia('(max-width: 500px)').addEventListener('change', e => setMedia(e.matches))
+    if (media) {
+      pokedexContainer.current.style.transform = 'translate(0, 0)';
+    }
+  }, [media])
+
+  const goDirection = () => {
+    console.log(media)
+    if (Math.abs(touchstartX.current) < Math.abs(touchendX.current) && media === true) {
+      console.log('should move')
+      console.log(pokedexCoverContainer.current)
+      pokedexCoverContainer.current.scrollIntoView({ block: "center" });
+    }
+    if (Math.abs(touchstartX.current) > Math.abs(touchendX.current) && media === true) {
+      console.log('should move to body')
+      console.log(pokedexCoverContainer.current)
+      pokedexContainer.current.scrollIntoView({ block: "center" });
+    }
+  };
+  document.addEventListener('touchstart', e => {
+    touchstartX.current = e.changedTouches[0].screenX
+  });
+  document.addEventListener('touchend', e => {
+    touchendX.current = e.changedTouches[0].screenX
+    goDirection();
+  })
+
   if (pokemonList) {
     return (
       <div className="background">
-        <div className="pokedex-container" style={{ transform: coverOpening ? 'translate(-170px, 0)' : 'translate(0,0)'}}>
+        <div ref={pokedexContainer} className="pokedex-container" style={{ transform: !media && coverOpening ? 'translate(-170px, 0)' : 'translate(0,0)'}}>
           <div className="pokedex-body-container">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
               <g id="pokedex-body-main">
@@ -251,7 +284,7 @@ const App = () => {
             <div className="pokemon-name-container" ref={pokemonNameContainer}><div className="pokemon-name" ref={pokemonName}>{pokemonList[currentPokemonIndex].name.charAt(0).toUpperCase() + pokemonList[currentPokemonIndex].name.slice(1)}</div></div>
           </div>
           <div className="pokedex-cover-container" style={{ transform: coverOpening ? 'rotateY(180deg) translate(12%,0)' : 'rotateY(0deg) translate(0,0)'}}>
-            <div className="pokedex-cover">
+            <div ref={pokedexCoverContainer} className="pokedex-cover">
               <div className="pokedex-cover-inner-container">
                 <svg xmlns="http://www.w3.org/2000/svg" className="pokedex-cover-inner" viewBox="0 0 300 400">
                   <g id="pokedex-cover-inner-body" onClick={() => setCoverOpening(!coverOpening)}>

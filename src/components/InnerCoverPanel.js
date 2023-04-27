@@ -11,8 +11,7 @@ const InnerCoverPanel = ({ type, pokemonFlavorText, pokemonList, version, curren
   const [pokemonStats, setPokemonStats] = useState(null);
   const [pokemonFlavorContainer, setPokemonFlavorContainer] = useState(null);
   const [stopScrolling, setStopScrolling] = useState(false)
-  console.log(stopScrolling);
-  console.log(pokemonStats);
+
   switch (type) {
     case 'flavor':
       return (

@@ -6,7 +6,6 @@ const FlavorTextScroll = ({ stopScrolling, pokemonFlavorContainer, pokemonFlavor
   const [flavorContainerHeight, setFlavorContainerHeight] = useState(null);
   const [flavorHeight, setFlavorHeight] = useState(null);
   const [heightDifference, setHeightDifference] = useState(null);
-  console.log(stopScrolling)
 
   useEffect(() => {
     if (pokemonFlavorContainer) {
