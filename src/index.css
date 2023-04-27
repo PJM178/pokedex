@@ -483,7 +483,7 @@ td {
   cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-device-width: 500px) {
   /* .background {
     overflow-x: scroll;
   } */
