@@ -163,32 +163,35 @@ const App = () => {
   }, [pokemonTypes])
 
   useEffect(() => {
-    window.matchMedia('(max-width: 500px)').addEventListener('change', e => setMedia(e.matches))
+    const goDirection = () => {
+      if (Math.abs(touchstartX.current) - 30 > Math.abs(touchendX.current) && media === true) {
+        pokedexCoverContainer.current.scrollIntoView({ behaviour: 'smooth', block: "center" });
+        console.log('move to cover');
+        console.log(touchstartX.current);
+        console.log(touchendX.current);
+      }
+      if (Math.abs(touchstartX.current) < Math.abs(touchendX.current) - 30 && media === true) {
+        pokedexContainer.current.scrollIntoView({ behaviour: 'smooth', block: "center" });
+        console.log('move to body');
+        console.log(touchstartX.current);
+        console.log(touchendX.current);
+      }
+    };
+
+    window.matchMedia('(max-device-width: 500px)').addEventListener('change', e => setMedia(e.matches))
     if (media) {
-      pokedexContainer.current.style.transform = 'translate(0, 0)';
+      if (pokedexContainer.current) {
+        pokedexContainer.current.style.transform = 'translate(0, 0)';
+      }
+      document.addEventListener('touchstart', e => {
+        touchstartX.current = e.changedTouches[0].screenX;
+      });
+      document.addEventListener('touchend', e => {
+        touchendX.current = e.changedTouches[0].screenX;
+        goDirection();
+      })
     }
   }, [media])
-
-  const goDirection = () => {
-    console.log(media)
-    if (Math.abs(touchstartX.current) < Math.abs(touchendX.current) && media === true) {
-      console.log('should move')
-      console.log(pokedexCoverContainer.current)
-      pokedexCoverContainer.current.scrollIntoView({ block: "center" });
-    }
-    if (Math.abs(touchstartX.current) > Math.abs(touchendX.current) && media === true) {
-      console.log('should move to body')
-      console.log(pokedexCoverContainer.current)
-      pokedexContainer.current.scrollIntoView({ block: "center" });
-    }
-  };
-  document.addEventListener('touchstart', e => {
-    touchstartX.current = e.changedTouches[0].screenX
-  });
-  document.addEventListener('touchend', e => {
-    touchendX.current = e.changedTouches[0].screenX
-    goDirection();
-  })
 
   if (pokemonList) {
     return (
