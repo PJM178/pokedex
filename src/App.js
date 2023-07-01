@@ -205,10 +205,18 @@ const App = () => {
                 <circle cx="40" cy="40" r="30" stroke="black" strokeWidth="1" fill="blue" />
                 <circle cx="30" cy="30" r="10" fill="white" fillOpacity="0.9" />
                 <circle cx="23" cy="45" r="5" fill="white" fillOpacity="0.9" />
-                <circle cx="90" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="red" />
-                <circle cx="115" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="orange" />
-                <circle cx="140" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="green" />
                 <path d="M0,80 L100,80 M100,80 S125 80 150,60 M150,60 S175 40 200,40 M200,40 L300,40" stroke="black" fill="none" strokeWidth="1" />
+              </g>
+              <g id="pokedex-body-lights">
+                <g id="pokedex-body-light-red-container">
+                  <circle id={!pokemonImage && !openSelectMenu && "pokedex-body-light-red"} cx="90" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="red" />
+                </g>
+                <g id="pokedex-body-light-orange-container">
+                  <circle id={!pokemonImage && !openSelectMenu && "pokedex-body-light-orange"} cx="115" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="orange" />
+                </g>
+                <g id="pokedex-body-light-green-container">
+                  <circle id={!pokemonImage && !openSelectMenu && "pokedex-body-light-green"} cx="140" cy="15" r="8" stroke="black" strokeWidth="1.5" fill="green" />
+                </g>
               </g>
               <g id="pokedex-body-inner-frame">
                 <path d="M10,85 L100,85 M100,85 S125 85 150,65 M150,65 S175 45 200,45 M200,45 L255,45" stroke="black" fill="none" strokeWidth="1" />

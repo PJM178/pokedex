@@ -92,3 +92,11 @@ async function delay(n) {
   await delay(1000);
   console.timeEnd("Testing delay");
 })();
+
+// Ternary test
+
+const valueTrue = false;
+
+const someString = "kalle" + (valueTrue ? "_true" : "_false");
+
+console.log(someString);

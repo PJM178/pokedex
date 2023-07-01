@@ -16,6 +16,40 @@
   cursor: pointer;
 } */
 
+/* #pokedex-body-lights {
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+} */
+
+#pokedex-body-light-red {
+  animation: blinkRed 0.75s infinite;
+}
+
+@keyframes blinkRed {
+  0% { fill: red; filter: drop-shadow( 0px 0px 14px rgba(255, 0, 0, 0));}
+  16.67% { fill: #A00; filter: drop-shadow( 0px 0px 14px rgba(170, 0, 0, 1));}
+  33.33% { fill: red; filter: drop-shadow( 0px 0px 14px rgba(255, 0, 0, 0));}
+}
+
+#pokedex-body-light-orange {
+  animation: blinkOrange 0.75s infinite;
+}
+
+@keyframes blinkOrange {
+  33.33% { fill: orange; filter: drop-shadow( 0px 0px 14px rgba(255, 255, 255, 0));}
+  50% { fill: rgb(170, 110, 0); filter: drop-shadow( 0px 0px 14px rgba(170, 110, 0, 1));}
+  66.67% { fill: orange;  filter: drop-shadow( 0px 0px 14px rgba(255, 255, 255, 0));}
+}
+
+#pokedex-body-light-green {
+  animation: blinkGreen 0.75s infinite;
+}
+
+@keyframes blinkGreen {
+  66.67% { fill: rgb(0, 128, 0); filter: drop-shadow( 0px 0px 14px rgba(0, 128, 0, 0));}
+  83.33% { fill: rgb(0, 85, 0); filter: drop-shadow( 0px 0px 14px rgba(0, 85, 0, 1));}
+  100% { fill: green; filter: drop-shadow( 0px 0px 14px rgba(0, 128, 0, 0));}
+}
+
 .pokedex-container {
   width: var(--pokedex-width);
   height: var(--pokedex-height);

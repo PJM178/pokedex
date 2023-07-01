@@ -9,6 +9,7 @@ const FlavorTextScroll = ({ stopScrolling, pokemonFlavorContainer, pokemonFlavor
 
   useEffect(() => {
     if (pokemonFlavorContainer) {
+      document.querySelector(".pokemon-flavor-container").scrollTo(0,0);
       setFlavorContainerHeight(pokemonFlavorContainer.clientHeight);
       // pokemonFlavorContainer.scrollTo(0, 0)
     }
